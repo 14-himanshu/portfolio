@@ -1,11 +1,11 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import { ExternalLink } from "lucide-react"
-import { FaGithub } from "react-icons/fa"
-import { projects } from "@/lib/data"
-import Link from "next/link"
-import { cn } from "@/lib/utils"
+import { motion } from "framer-motion";
+import { ArrowRight, ExternalLink } from "lucide-react";
+import { FaGithub } from "react-icons/fa";
+import { projects } from "@/lib/data";
+import Link from "next/link";
+import Image from "next/image";
 
 export function Projects() {
   return (
@@ -21,70 +21,120 @@ export function Projects() {
             Proof of Work
           </motion.div>
           <h2 className="text-5xl md:text-7xl font-bold font-outfit tracking-tighter leading-[0.95] mb-6">
-            Crafting ideas into <br />
-            <span className="text-muted-foreground">reality.</span>
+            Case studies that <br />
+            <span className="text-muted-foreground">
+              show the full product story.
+            </span>
           </h2>
           <p className="text-muted-foreground text-xl leading-relaxed">
-            A curated selection of projects where I pushed the boundaries of 
-            web technologies and design systems.
+            Three representative builds from my portfolio: one focused on
+            AI-powered knowledge management, one on real-time communication, and
+            one on AI-assisted portfolio review.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-          {projects.map((project, index) => (
-            <motion.div
-              key={project.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className="group relative"
-            >
-              <div className="relative aspect-[4/3] rounded-[2.5rem] overflow-hidden border border-border/40 shadow-2xl transition-all duration-500 group-hover:scale-[1.02] group-hover:shadow-[0_30px_60px_-20px_rgba(0,0,0,0.4)]">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-cover grayscale-[0.2] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-end p-8">
-                  <div className="flex gap-3">
-                    <Link 
-                      href={project.github} 
-                      target="_blank"
-                      className="p-3 bg-foreground/10 backdrop-blur-xl border border-white/10 rounded-2xl hover:bg-foreground/20 transition-colors"
-                    >
-                      <FaGithub className="w-5 h-5 text-white" />
-                    </Link>
-                    <Link 
-                      href={project.link} 
-                      target="_blank"
-                      className="p-3 bg-foreground/10 backdrop-blur-xl border border-white/10 rounded-2xl hover:bg-foreground/20 transition-colors"
-                    >
-                      <ExternalLink className="w-5 h-5 text-white" />
-                    </Link>
+        <div className="grid grid-cols-1 gap-8">
+          {projects.map((project, index) => {
+            return (
+              <motion.div
+                key={project.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.06 }}
+                className="group relative bg-transparent"
+              >
+                <div className="grid grid-cols-1 md:grid-cols-[1fr_0.95fr] items-stretch gap-6 rounded-3xl border border-border/30 overflow-hidden transition-shadow duration-300 hover:shadow-2xl">
+                  <div className="p-6 md:p-8 flex flex-col justify-between bg-background/5">
+                    <div>
+                      <div className="flex items-center justify-between gap-4">
+                        <div>
+                          <h3 className="text-3xl md:text-4xl font-bold font-outfit tracking-tight text-foreground">
+                            {project.title}
+                          </h3>
+                          <p className="text-sm text-muted-foreground mt-1">
+                            {project.description}
+                          </p>
+                        </div>
+                        <div className="hidden md:flex items-center gap-3">
+                          <Link
+                            href={project.github}
+                            target="_blank"
+                            className="p-2 rounded-lg bg-foreground/6 hover:bg-foreground/10 transition"
+                          >
+                            <FaGithub className="w-5 h-5 text-muted-foreground" />
+                          </Link>
+                          <Link
+                            href={project.link}
+                            target="_blank"
+                            className="p-2 rounded-lg bg-foreground/6 hover:bg-foreground/10 transition"
+                          >
+                            <ExternalLink className="w-5 h-5 text-muted-foreground" />
+                          </Link>
+                        </div>
+                      </div>
+
+                      <div className="mt-5 flex flex-wrap gap-2">
+                        {project.tags.map((tag) => (
+                          <span
+                            key={tag}
+                            className="px-3 py-1 rounded-full bg-primary/5 text-primary/70 text-xs font-semibold"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+
+                      {"highlights" in project &&
+                        Array.isArray(project.highlights) && (
+                          <ul className="mt-6 space-y-2 text-muted-foreground">
+                            {project.highlights.map((h) => (
+                              <li key={h} className="flex items-start gap-3">
+                                <span className="mt-1 h-2 w-2 rounded-full bg-primary shrink-0" />
+                                <span className="text-sm">{h}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                    </div>
+
+                    <div className="mt-6 flex items-center gap-3">
+                      <Link
+                        href={`/projects/${project.slug}`}
+                        className="inline-flex items-center gap-2 text-sm font-bold text-primary hover:gap-3 transition-all"
+                      >
+                        Read case study
+                        <ArrowRight className="w-4 h-4" />
+                      </Link>
+                    </div>
+                  </div>
+
+                  <div className="p-6 md:p-8 flex items-center justify-center bg-linear-to-br from-background/0 via-background/5 to-background/0">
+                    <div className="w-full relative transition-transform duration-500 group-hover:scale-[1.02]">
+                      <div className="w-full rounded-2xl border border-border/40 shadow-lg overflow-hidden bg-black/5">
+                        <div className="flex items-center gap-3 px-3 py-2 bg-background/90 border-b border-border/30">
+                          <span className="w-3 h-3 rounded-full bg-red-500" />
+                          <span className="w-3 h-3 rounded-full bg-yellow-400" />
+                          <span className="w-3 h-3 rounded-full bg-green-400" />
+                        </div>
+                        <div className="relative w-full aspect-2/1 overflow-hidden bg-background/80">
+                          <Image
+                            src={project.image}
+                            alt={`${project.title} preview`}
+                            fill
+                            sizes="(max-width: 768px) 100vw, 45vw"
+                            className="object-contain object-center transition-transform duration-700 will-change-transform group-hover:scale-[1.02]"
+                          />
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-              
-              <div className="mt-8 space-y-4 px-2">
-                <div className="flex flex-wrap gap-2">
-                  {project.tags.map(tag => (
-                    <span key={tag} className="text-[10px] font-black uppercase tracking-widest px-3 py-1 bg-primary/5 text-primary/70 rounded-lg border border-primary/10">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-                <h3 className="text-2xl font-bold font-outfit tracking-tight group-hover:text-primary transition-colors duration-300">
-                  {project.title}
-                </h3>
-                <p className="text-muted-foreground text-base leading-relaxed line-clamp-2">
-                  {project.description}
-                </p>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>
-  )
+  );
 }
