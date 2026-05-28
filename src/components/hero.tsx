@@ -2,9 +2,10 @@
 
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { ArrowRight, ChevronDown } from "lucide-react"
+import { ArrowRight, ChevronDown, FileText } from "lucide-react"
 import Link from "next/link"
 import { cn } from "@/lib/utils"
+import { resume } from "@/lib/site"
 
 export function Hero() {
   const [isVisible, setIsVisible] = useState(true)
@@ -83,9 +84,19 @@ export function Hero() {
             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </Link>
           <Link
-            href="#contact"
+            href={resume.viewPath}
             className={cn(
               "px-10 py-5 bg-secondary text-secondary-foreground rounded-2xl font-black border border-border/50 transition-all duration-300 shadow-lg",
+              "hover:bg-secondary/80 active:scale-[0.98] flex items-center gap-3"
+            )}
+          >
+            <FileText className="w-5 h-5" />
+            VIEW RESUME
+          </Link>
+          <Link
+            href="#contact"
+            className={cn(
+              "px-10 py-5 bg-secondary/60 text-secondary-foreground rounded-2xl font-black border border-border/50 transition-all duration-300",
               "hover:bg-secondary/80 active:scale-[0.98]"
             )}
           >
