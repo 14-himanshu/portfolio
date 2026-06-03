@@ -19,7 +19,7 @@ export async function POST(request: Request) {
     // Attempt to send email
     const data = await resend.emails.send({
       from: 'Portfolio Contact <onboarding@resend.dev>', // Resend's default test sender
-      to: '1430user@gmail.com', // Your email
+      to: process.env.CONTACT_EMAIL as string, // Read from environment variables
       subject: `New Project Inquiry from ${name}`,
       replyTo: email,
       text: `Name: ${name}\nEmail: ${email}\n\nProject Details:\n${details}`,
