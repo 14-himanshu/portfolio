@@ -8,6 +8,7 @@ import { FaGithub, FaLinkedin } from "react-icons/fa"
 import { useTheme } from "next-themes"
 import { cn } from "@/lib/utils"
 import Link from "next/link"
+import { LiveVisitors } from "@/components/live-visitors"
 
 const navItems = [
   { name: "Home", href: "#home", icon: Home },
@@ -136,6 +137,11 @@ export function Navbar() {
               <Moon className="w-5 h-5 text-indigo-600 group-hover:-rotate-12 transition-transform duration-500" />
             )}
           </button>
+        </div>
+
+        <div className="hidden sm:block w-[1px] h-6 bg-border/50 mx-1" />
+        <div className="hidden sm:block">
+          <LiveVisitors />
         </div>
       </motion.div>
     </nav>

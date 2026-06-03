@@ -8,27 +8,8 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit" });
 
 export const metadata: Metadata = {
-  title: {
-    default: "Himanshu | Software Engineer",
-    template: "%s | Himanshu"
-  },
-  description: "Software Engineer & Creative Developer based in India, specializing in high-performance web applications and AI integrations.",
-  keywords: ["Software Engineer", "Frontend Developer", "Full Stack Developer", "Next.js", "React", "Portfolio"],
-  creator: "Himanshu Pandey",
-  openGraph: {
-    type: "website",
-    locale: "en_US",
-    url: "https://himanshupandey.com",
-    title: "Himanshu | Software Engineer",
-    description: "Software Engineer & Creative Developer based in India, specializing in high-performance web applications and AI integrations.",
-    siteName: "Himanshu Portfolio",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Himanshu | Software Engineer",
-    description: "Software Engineer & Creative Developer based in India, specializing in high-performance web applications and AI integrations.",
-    creator: "@yourtwitterhandle",
-  },
+  title: "Himanshu",
+  description: "Software Engineer & Creative Developer based in India.",
 };
 
 export default function RootLayout({
