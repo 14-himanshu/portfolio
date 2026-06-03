@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit" });
 
 export const metadata: Metadata = {
-  title: "Himanshu",
+  title: "Himanshu Pandey",
   description: "Software Engineer & Creative Developer based in India.",
 };
 
