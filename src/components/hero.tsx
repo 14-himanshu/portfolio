@@ -50,8 +50,8 @@ export function Hero() {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="text-6xl md:text-8xl lg:text-[10rem] font-bold font-outfit tracking-tighter leading-[0.9] mb-10"
         >
-          Building <span className="text-gradient">digital</span> <br />
-          masterpieces.
+          Building <span className="text-gradient">scalable</span> <br />
+          applications.
         </motion.h1>
 
         {/* Subtext */}

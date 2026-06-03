@@ -1,9 +1,12 @@
 import { Navbar } from "@/components/navbar";
 import { Hero } from "@/components/hero";
-import { Projects } from "@/components/projects";
-import { Experience } from "@/components/experience";
-import { Skills } from "@/components/skills";
-import { Contact } from "@/components/contact";
+import dynamic from 'next/dynamic';
+
+// Dynamically import below-the-fold components to reduce initial JavaScript payload
+const Experience = dynamic(() => import("@/components/experience").then(mod => mod.Experience));
+const Projects = dynamic(() => import("@/components/projects").then(mod => mod.Projects));
+const Skills = dynamic(() => import("@/components/skills").then(mod => mod.Skills));
+const Contact = dynamic(() => import("@/components/contact").then(mod => mod.Contact));
 import { resume } from "@/lib/site";
 
 export default function Home() {
