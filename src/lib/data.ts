@@ -219,14 +219,14 @@ export const projects: Project[] = [
     },
   },
   {
-    slug: "synctalk",
-    title: "SyncTalk",
+    slug: "slate",
+    title: "Slate",
     description:
       "A real-time multi-room chat platform with JWT auth, live room switching, typing indicators, reactions, edits, media uploads, and persistent message history.",
-    image: "/projects/synctalk-card.jpg",
+    image: "/projects/slate-card.png",
     tags: ["React", "Express", "WebSocket", "MongoDB"],
-    link: "https://sync-talk-web.vercel.app/",
-    github: "https://github.com/14-himanshu/chat-app",
+    link: "https://slate-project.vercel.app/",
+    github: "https://github.com/14-himanshu/slate",
     highlights: [
       "Multi-room messaging",
       "WebSocket live sync",
@@ -235,12 +235,12 @@ export const projects: Project[] = [
     ],
     caseStudy: {
       summary:
-        "SyncTalk is a full-stack real-time chat application where authenticated users can join multiple rooms, exchange messages instantly, and manage their profile across a modern responsive interface.",
+        "Slate is a full-stack real-time chat application where authenticated users can join multiple rooms, exchange messages instantly, and manage their profile across a modern responsive interface.",
       sections: [
         {
           title: "Overview",
           paragraphs: [
-            "SyncTalk combines a React and TypeScript frontend with a Node.js and Express backend plus a WebSocket layer so room events and chat messages feel instant.",
+            "Slate combines a React and TypeScript frontend with a Node.js and Express backend plus a WebSocket layer so room events and chat messages feel instant.",
           ],
         },
         {
@@ -497,22 +497,62 @@ export const projects: Project[] = [
       ],
     },
   },
+  {
+    slug: "coursespace",
+    title: "CourseSpace",
+    description:
+      "A modern, responsive e-learning platform to master your craft with world-class courses and top instructors.",
+    image: "/projects/coursespace-card.png",
+    tags: ["Next.js", "TypeScript", "Tailwind CSS"],
+    link: "https://coursespace-xi.vercel.app/",
+    github: "https://github.com/14-himanshu/coursespace",
+    highlights: [
+      "Intuitive course discovery",
+      "Modern UI/UX",
+      "Responsive design",
+      "Next.js App Router"
+    ],
+    caseStudy: {
+      summary:
+        "CourseSpace is a modern e-learning platform designed to connect students with world-class instructors.",
+      sections: [
+        {
+          title: "Overview",
+          paragraphs: [
+            "CourseSpace provides a clean, fast, and accessible interface for discovering and consuming educational content.",
+          ],
+        },
+        {
+          title: "Problem Statement",
+          paragraphs: [
+            "Many online learning platforms suffer from cluttered interfaces and slow load times, creating friction for students.",
+          ],
+        },
+        {
+          title: "Goal",
+          paragraphs: [
+            "Build an intuitive and fast e-learning storefront that prioritizes content discovery and a smooth user experience.",
+          ],
+        }
+      ]
+    }
+  },
 ];
 
 export const experience = [
   {
-    company: "Independent Developer",
-    role: "Full Stack Development",
+    company: "Independent Software Engineer",
+    role: "Full-Stack & AI Integrations",
     duration: "2023 - Present",
     description:
-      "Building production-ready web applications using modern stacks like Next.js, TypeScript, and Prisma. Focused on scalability, performance, and clean code.",
+      "Architected and deployed multiple production-ready web applications focusing on real-time communication and AI-driven workflows. Engineered platforms like Second Brain and CourseSpace using Next.js, TypeScript, and MongoDB. Implemented advanced features including WebSocket syncing, semantic search, and background queue processing.",
   },
   {
-    company: "Open Source Contributor",
-    role: "Project Builder",
+    company: "Open Source & Personal Projects",
+    role: "Frontend & Backend Developer",
     duration: "2022 - 2023",
     description:
-      "Developed several real-world applications as personal projects, mastering the fundamentals of React, state management, and API integrations.",
+      "Mastered core web fundamentals by building responsive, data-intensive applications. Developed secure REST APIs, integrated OAuth authentication, and built complex UI components using React and Tailwind CSS. Emphasized clean code architecture and scalable database design.",
   },
 ];
 

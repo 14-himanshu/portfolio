@@ -10,14 +10,35 @@ export function Contact() {
   const [loading, setLoading] = useState(false)
   const [submitted, setSubmitted] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setLoading(true)
-    setTimeout(() => {
+
+    const formData = new FormData(e.currentTarget)
+    const data = {
+      name: formData.get('name'),
+      email: formData.get('email'),
+      details: formData.get('details'),
+    }
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      })
+
+      if (response.ok) {
+        setSubmitted(true)
+        toast.success("Message sent! I'll be in touch shortly.")
+      } else {
+        toast.error("Failed to send message. Please try again.")
+      }
+    } catch (error) {
+      toast.error("An error occurred. Please try again.")
+    } finally {
       setLoading(false)
-      setSubmitted(true)
-      toast.success("Message sent! I'll be in touch shortly.")
-    }, 1500)
+    }
   }
 
   return (
@@ -58,7 +79,11 @@ export function Contact() {
                 </div>
                 <div>
                   <p className="text-xs uppercase tracking-widest font-black text-muted-foreground/60 mb-1">Social Channels</p>
-                  <p className="text-xl font-bold">LinkedIn / GitHub</p>
+                  <p className="text-xl font-bold">
+                    <a href="https://linkedin.com/in/himanshupandey" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">LinkedIn</a>
+                    {" / "}
+                    <a href="https://github.com/14-himanshu" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">GitHub</a>
+                  </p>
                 </div>
               </div>
             </div>
@@ -94,6 +119,7 @@ export function Contact() {
                   <label className="text-sm font-bold tracking-wide ml-1">Your Name</label>
                   <input 
                     required
+                    name="name"
                     type="text" 
                     placeholder="E.g. Elon Musk"
                     className="w-full px-5 py-4 rounded-2xl bg-background/50 border border-border/60 focus:border-primary/50 focus:ring-4 focus:ring-primary/10 outline-none transition-all placeholder:text-muted-foreground/30 font-medium"
@@ -103,6 +129,7 @@ export function Contact() {
                   <label className="text-sm font-bold tracking-wide ml-1">Work Email</label>
                   <input 
                     required
+                    name="email"
                     type="email" 
                     placeholder="E.g. elon@spacex.com"
                     className="w-full px-5 py-4 rounded-2xl bg-background/50 border border-border/60 focus:border-primary/50 focus:ring-4 focus:ring-primary/10 outline-none transition-all placeholder:text-muted-foreground/30 font-medium"
@@ -112,6 +139,7 @@ export function Contact() {
                   <label className="text-sm font-bold tracking-wide ml-1">Project Details</label>
                   <textarea 
                     required
+                    name="details"
                     rows={4}
                     placeholder="Briefly describe what you're working on..."
                     className="w-full px-5 py-4 rounded-2xl bg-background/50 border border-border/60 focus:border-primary/50 focus:ring-4 focus:ring-primary/10 outline-none transition-all placeholder:text-muted-foreground/30 font-medium resize-none"
