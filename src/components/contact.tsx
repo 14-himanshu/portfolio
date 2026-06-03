@@ -69,8 +69,8 @@ export function Contact() {
                   <Mail className="w-6 h-6 text-primary" />
                 </div>
                 <div>
-                  <p className="text-xs uppercase tracking-widest font-black text-muted-foreground/60 mb-1">Email Me</p>
-                  <p className="text-xl font-bold">1430user@gmail.com</p>
+                  <p className="text-xs font-mono text-muted-foreground uppercase tracking-wider mb-1">Email Me</p>
+                  <p className="text-xl font-bold">himanshu.premote@gmail.com</p>
                 </div>
               </div>
               <div className="flex items-center gap-6 group">
