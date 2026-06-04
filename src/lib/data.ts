@@ -415,33 +415,33 @@ export const projects: Project[] = [
     description:
       "An AI-powered app that analyzes a GitHub profile and repositories, then returns mentorship-style feedback with actionable portfolio guidance.",
     image: "/projects/devscope-card.png",
-    tags: ["Streamlit", "FastAPI", "LangGraph", "Groq"],
+    tags: ["HTML/CSS/JS", "FastAPI", "LangGraph", "Groq"],
     link: "https://devscope-q72q.onrender.com/",
     github: "https://github.com/14-himanshu/student-github-reviewer",
     highlights: [
       "Mentor-style feedback",
       "GitHub API enrichment",
-      "FastAPI + Streamlit split",
+      "FastAPI + Vanilla JS split",
       "Render deployment",
     ],
     caseStudy: {
       summary:
-        "DevScope is an AI-powered app that analyzes a GitHub user’s profile and repositories, then returns mentorship-style feedback on their portfolio.",
+        "DevScope is an AI-powered app that analyzes a GitHub user's profile and repositories, then returns mentorship-style feedback on their portfolio.",
       sections: [
         {
           title: "Project Summary",
           paragraphs: [
             "DevScope analyzes a GitHub profile and repository set, then converts that information into practical, mentorship-style feedback.",
-            "The app is designed to help students understand how their public work reads to a reviewer and what they can improve next.",
+            "The app is designed to help students understand how their public work looks to a reviewer and what they can improve next.",
           ],
         },
         {
           title: "What You Used",
           paragraphs: [
-            "The stack intentionally keeps the UI simple while letting the AI pipeline do the heavy lifting.",
+            "This stack intentionally keeps the UI simple while letting the AI pipeline do the heavy lifting.",
           ],
           bullets: [
-            "Frontend: Streamlit.",
+            "Frontend: Vanilla HTML, CSS, and JavaScript.",
             "Backend/API: FastAPI (Python) with Uvicorn.",
             "AI / Orchestration: LangGraph and LangChain.",
             "LLM: Groq running llama-3.1-8b-instant.",
@@ -456,7 +456,7 @@ export const projects: Project[] = [
           ],
           bullets: [
             "Platform: Render.",
-            "Deployment model: one backend API service and one frontend Streamlit service.",
+            "Deployment model: one backend API service and one static frontend service.",
             "Configuration: render.yaml with GROQ_API_KEY, GITHUB_TOKEN, and BACKEND_URL environment variables.",
           ],
         },
@@ -479,20 +479,20 @@ export const projects: Project[] = [
             "The high-level flow is simple: collect, enrich, review, and render.",
           ],
           bullets: [
-            "The user submits a GitHub username in the Streamlit UI.",
+            "The user submits a GitHub username in the frontend UI.",
             "The UI calls a FastAPI POST /review endpoint.",
             "A LangGraph pipeline runs extract_github_data against the GitHub API, then code_mentor_review through the Groq LLM.",
-            "The backend returns JSON containing extracted_data and mentor_feedback.",
+            "The backend returns JSON containing extracted data and mentor feedback.",
             "The UI renders metrics and the mentor review response.",
           ],
         },
         {
           title: "Portfolio-ready Blurb",
           paragraphs: [
-            "Built a full-stack AI portfolio reviewer using Streamlit, FastAPI, LangGraph, and Groq Llama 3.1. The app consumes the GitHub REST API to extract repository and language insights, then generates mentorship-style feedback through an LLM pipeline. Deployed as separate frontend and backend services on Render, with production-style handling for rate limits, timeouts, and API errors.",
+            "Built a full-stack AI portfolio reviewer using Vanilla JS, FastAPI, LangGraph, and Groq Llama 3.1. The app consumes the GitHub REST API to extract repository and language insights, then generates mentorship-style feedback through an LLM pipeline. Deployed as separate frontend and backend services on Render, with production-style handling for rate limits, timeouts, and API errors.",
           ],
           quote:
-            "Built a full-stack AI portfolio reviewer using Streamlit, FastAPI, LangGraph, and Groq Llama 3.1. The app consumes the GitHub REST API to extract repository and language insights, then generates mentorship-style feedback through an LLM pipeline. Deployed as separate frontend and backend services on Render, with production-style handling for rate limits, timeouts, and API errors.",
+            "Built a full-stack AI portfolio reviewer using Vanilla JS, FastAPI, LangGraph, and Groq Llama 3.1. The app consumes the GitHub REST API to extract repository and language insights, then generates mentorship-style feedback through an LLM pipeline. Deployed as separate frontend and backend services on Render, with production-style handling for rate limits, timeouts, and API errors.",
         },
       ],
     },
