@@ -413,86 +413,88 @@ export const projects: Project[] = [
     slug: "devscope",
     title: "DevScope",
     description:
-      "An AI-powered app that analyzes a GitHub profile and repositories, then returns mentorship-style feedback with actionable portfolio guidance.",
+      "An AI-powered app that analyzes a GitHub profile and repositories, then returns mentorship-style feedback with actionable portfolio guidance, career tools, and an interactive AI mentor.",
     image: "/projects/devscope-card.png",
-    tags: ["Streamlit", "FastAPI", "LangGraph", "Groq"],
+    tags: ["HTML/JS", "FastAPI", "LangGraph", "Groq", "SQLite"],
     link: "https://devscope-q72q.onrender.com/",
     github: "https://github.com/14-himanshu/student-github-reviewer",
     highlights: [
       "Mentor-style feedback",
-      "GitHub API enrichment",
-      "FastAPI + Streamlit split",
-      "Render deployment",
+      "Interactive AI Chat",
+      "Career Tools & PDF Export",
+      "SQLite & Caching",
     ],
     caseStudy: {
       summary:
-        "DevScope is an AI-powered app that analyzes a GitHub user’s profile and repositories, then returns mentorship-style feedback on their portfolio.",
+        "DevScope is an AI-powered app that analyzes a GitHub user’s profile and repositories, providing comprehensive mentorship-style feedback, actionable career tools, and an interactive AI chat interface.",
       sections: [
         {
           title: "Project Summary",
           paragraphs: [
-            "DevScope analyzes a GitHub profile and repository set, then converts that information into practical, mentorship-style feedback.",
-            "The app is designed to help students understand how their public work reads to a reviewer and what they can improve next.",
+            "DevScope acts as a virtual tech mentor. It analyzes a developer's GitHub profile, repositories, and languages, then translates that data into practical, mentorship-style feedback.",
+            "The platform has evolved from a simple reviewer into a comprehensive career tool, offering gamified feedback, AI-generated cover letters, project ideas, and interactive chat, all aimed at helping students and junior developers improve their portfolios.",
           ],
         },
         {
           title: "What You Used",
           paragraphs: [
-            "The stack intentionally keeps the UI simple while letting the AI pipeline do the heavy lifting.",
+            "The tech stack focuses on a fast, decoupled architecture with a strong AI pipeline at its core.",
           ],
           bullets: [
-            "Frontend: Streamlit.",
+            "Frontend: Custom HTML, CSS (Dark Theme), and Vanilla JavaScript.",
             "Backend/API: FastAPI (Python) with Uvicorn.",
             "AI / Orchestration: LangGraph and LangChain.",
-            "LLM: Groq running llama-3.1-8b-instant.",
-            "Data and API integration: GitHub REST API endpoints for user and repository data.",
-            "Other libraries: requests and python-dotenv.",
+            "LLM: Groq running Llama 3.1 8B Instant.",
+            "Database: SQLite with SQLAlchemy ORM for saving reviews.",
+            "Data & Integrations: GitHub REST API for extracting user data.",
+            "Other tools: ReportLab for PDF generation, in-memory caching for rate limits.",
           ],
         },
         {
           title: "Hosting / Deployment",
           paragraphs: [
-            "The app is deployed as two separate services so the UI and API can scale and fail independently.",
+            "The app is deployed as a consolidated full-stack service to optimize deployment speed.",
           ],
           bullets: [
             "Platform: Render.",
-            "Deployment model: one backend API service and one frontend Streamlit service.",
-            "Configuration: render.yaml with GROQ_API_KEY, GITHUB_TOKEN, and BACKEND_URL environment variables.",
+            "Deployment model: A single FastAPI backend serving static HTML/JS assets and API routes.",
+            "Configuration: render.yaml with GROQ_API_KEY, GITHUB_TOKEN, and environmental variables.",
           ],
         },
         {
           title: "Core Features",
           paragraphs: [
-            "The product is focused on fast feedback and a clear review experience.",
+            "DevScope provides a complete suite of tools to help developers understand and enhance their public work.",
           ],
           bullets: [
-            "Enter a GitHub username and analyze the portfolio.",
-            "Fetch recent repositories, languages, and public repository count.",
-            "Generate AI feedback with actionable suggestions.",
-            "Handle API and LLM issues with timeouts, rate limits, and retries.",
-            "Present a clean UI with metrics and expandable review sections.",
+            "AI Code Mentor: Generates professional code reviews based on repository data and READMEs.",
+            "Gamification: Automatically awards an overall portfolio grade and custom achievement badges.",
+            "Interactive AI Chat: A built-in floating chat mentor to answer follow-up questions about the portfolio.",
+            "Career Tools Suite: Generates tailored cover letters, skill roadmaps, project ideas, and interview questions.",
+            "Export & Save: Export reviews as PDFs or Markdown, and save past reviews to the database.",
+            "Performance: In-memory caching for instant loads on subsequent requests and robust exponential backoff for rate limits.",
           ],
         },
         {
           title: "Architecture",
           paragraphs: [
-            "The high-level flow is simple: collect, enrich, review, and render.",
+            "The architecture is designed to handle API orchestration and LLM streaming efficiently.",
           ],
           bullets: [
-            "The user submits a GitHub username in the Streamlit UI.",
-            "The UI calls a FastAPI POST /review endpoint.",
-            "A LangGraph pipeline runs extract_github_data against the GitHub API, then code_mentor_review through the Groq LLM.",
-            "The backend returns JSON containing extracted_data and mentor_feedback.",
-            "The UI renders metrics and the mentor review response.",
+            "The user inputs a GitHub username via the responsive HTML/JS frontend.",
+            "FastAPI receives the POST request and first checks the in-memory cache to bypass API rate limits.",
+            "A LangGraph pipeline extracts data from the GitHub API and streams it through the Groq Llama 3.1 LLM for evaluation.",
+            "The backend saves the generated review using SQLAlchemy into a SQLite database.",
+            "The frontend renders the complex JSON payload into a clean dashboard with expandable career tools and actionable metrics.",
           ],
         },
         {
           title: "Portfolio-ready Blurb",
           paragraphs: [
-            "Built a full-stack AI portfolio reviewer using Streamlit, FastAPI, LangGraph, and Groq Llama 3.1. The app consumes the GitHub REST API to extract repository and language insights, then generates mentorship-style feedback through an LLM pipeline. Deployed as separate frontend and backend services on Render, with production-style handling for rate limits, timeouts, and API errors.",
+            "Built a full-stack AI portfolio reviewer using FastAPI, LangGraph, Groq Llama 3.1, and SQLite. The application consumes the GitHub REST API to extract repository and language insights, then generates deep mentorship-style feedback via an LLM pipeline. It features an interactive AI mentor chat, gamified grading, automated PDF generation, and robust handling for rate limits and caching.",
           ],
           quote:
-            "Built a full-stack AI portfolio reviewer using Streamlit, FastAPI, LangGraph, and Groq Llama 3.1. The app consumes the GitHub REST API to extract repository and language insights, then generates mentorship-style feedback through an LLM pipeline. Deployed as separate frontend and backend services on Render, with production-style handling for rate limits, timeouts, and API errors.",
+            "Built a full-stack AI portfolio reviewer using FastAPI, LangGraph, Groq Llama 3.1, and SQLite. The application consumes the GitHub REST API to extract repository and language insights, then generates deep mentorship-style feedback via an LLM pipeline. It features an interactive AI mentor chat, gamified grading, automated PDF generation, and robust handling for rate limits and caching.",
         },
       ],
     },
@@ -501,41 +503,183 @@ export const projects: Project[] = [
     slug: "coursespace",
     title: "CourseSpace",
     description:
-      "A modern, responsive e-learning platform to master your craft with world-class courses and top instructors.",
+      "A modern, enterprise-grade Course Selling Application featuring a beautiful, dark-mode focused UI, a custom YouTube video player, and a highly secure backend.",
     image: "/projects/coursespace-card.png",
-    tags: ["Next.js", "TypeScript", "Tailwind CSS"],
+    tags: ["React", "Express.js", "MongoDB", "Node.js"],
     link: "https://coursespace-xi.vercel.app/",
     github: "https://github.com/14-himanshu/coursespace",
     highlights: [
-      "Intuitive course discovery",
-      "Modern UI/UX",
-      "Responsive design",
-      "Next.js App Router"
+      "Stunning Dark-Mode UI",
+      "Robust Course Player",
+      "Role-Based Auth",
+      "Secure Backend",
     ],
     caseStudy: {
       summary:
-        "CourseSpace is a modern e-learning platform designed to connect students with world-class instructors.",
+        "CourseSpace is a comprehensive SaaS platform designed to facilitate the seamless creation, management, and consumption of educational content. Built with the MERN stack, it offers a robust solution for educators to host courses and for students to learn interactively.",
       sections: [
         {
           title: "Overview",
           paragraphs: [
-            "CourseSpace provides a clean, fast, and accessible interface for discovering and consuming educational content.",
+            "CourseSpace is a comprehensive SaaS platform designed to facilitate the seamless creation, management, and consumption of educational content. Built with the MERN stack, it offers a robust solution for educators to host courses and for students to learn interactively. The platform prioritizes high-end aesthetics, robust security, and an intuitive user experience.",
           ],
         },
         {
           title: "Problem Statement",
           paragraphs: [
-            "Many online learning platforms suffer from cluttered interfaces and slow load times, creating friction for students.",
+            "Many existing course platforms are clunky, overly complex, and lack modern aesthetic appeal. Creators often struggle with confusing admin dashboards, while students face disjointed video playback and uninspiring interfaces. Furthermore, security and proper data validation are frequently overlooked in basic e-learning templates, leaving user data vulnerable.",
           ],
         },
         {
           title: "Goal",
           paragraphs: [
-            "Build an intuitive and fast e-learning storefront that prioritizes content discovery and a smooth user experience.",
+            "To build a state-of-the-art, secure, and visually stunning course-selling platform that provides a frictionless experience for both administrators (creators) and end-users (students). The application must feature a reliable video delivery system, strict backend security, and a premium \"dark-mode\" design language.",
           ],
-        }
-      ]
-    }
+        },
+        {
+          title: "Solution",
+          paragraphs: [
+            "Developed a full-stack application leveraging React and Vite for a lightning-fast frontend, coupled with a Node.js/Express backend fortified with industry-standard security practices. The platform utilizes MongoDB for scalable data storage, Cloudinary for efficient media delivery, and Razorpay for seamless payment processing.",
+          ],
+        },
+        {
+          title: "Features",
+          paragraphs: [
+            "Here are the core functionalities integrated into the application:",
+          ],
+          bullets: [
+            "Stunning Dark-Mode UI: Built with pure CSS, featuring glassmorphism, responsive grids, and subtle micro-animations for a premium feel.",
+            "Admin Dashboard: Comprehensive CRUD (Create, Read, Update, Delete) capabilities with a sleek Modal interface for managing courses, users, and content.",
+            "Robust Course Player: An integrated video player utilizing the native YouTube embed API to flawlessly handle course lessons and track progress.",
+            "Interactive Notifications: Beautiful success and error toasts using react-hot-toast for real-time user feedback.",
+            "Cloud Storage Integration: Integrated with Cloudinary and multer for secure, cloud-based image hosting for course thumbnails and assets.",
+            "Role-Based Authentication: JWT-based authentication with properly segregated Admin and User access controls and middlewares.",
+          ],
+        },
+        {
+          title: "Tech Stack",
+          paragraphs: [
+            "The project was built utilizing the following core technologies:",
+          ],
+          bullets: [
+            "Frontend: React, Vite, React Router DOM, Lucide-React",
+            "Backend: Node.js, Express.js",
+            "Database: MongoDB & Mongoose",
+            "Security & Validation: JWT, Zod, Helmet, Express-Rate-Limit, Bcrypt",
+            "Media & Payments: Cloudinary API, Razorpay",
+            "Logging: Winston, Morgan",
+          ],
+        },
+        {
+          title: "Architecture / Workflow",
+          paragraphs: [
+            "The application follows a standard modern web architecture:",
+          ],
+          bullets: [
+            "Client-Side: The React frontend handles routing, state management, and UI rendering. It communicates with the backend via RESTful APIs.",
+            "API Layer: Express.js routes process incoming HTTP requests, route them through security and validation middlewares, and pass them to controllers.",
+            "Data Validation: Zod schemas strictly validate all incoming payloads before they hit the database, preventing injection attacks.",
+            "Data Persistence: Mongoose models define the schema for MongoDB, handling database queries and relationships.",
+            "Media Management: Images uploaded by admins are temporarily stored using Multer and then uploaded to Cloudinary, with the resulting URL saved to the database.",
+          ],
+        },
+        {
+          title: "Challenges Faced",
+          paragraphs: [
+            "During development, several technical hurdles were encountered and resolved:",
+          ],
+          bullets: [
+            "Secure Video Delivery: Ensuring the course player smoothly integrated YouTube APIs while maintaining a custom, branded look.",
+            "State Management: Handling complex state across the admin dashboard, especially during multi-step course creation and updates.",
+            "Security Implementation: Properly configuring Helmet and Rate-Limiting without inadvertently blocking legitimate API traffic.",
+            "Image Uploads: Managing multipart form data and ensuring reliable uploads to Cloudinary via the backend.",
+          ],
+        },
+        {
+          title: "Performance & Optimization",
+          paragraphs: [
+            "To ensure a fast and responsive application, the following optimizations were made:",
+          ],
+          bullets: [
+            "Implemented Vite for significantly faster frontend build times and Hot Module Replacement (HMR).",
+            "Utilized pure CSS for styling, reducing the overhead of large CSS frameworks.",
+            "Configured MongoDB indexes on frequently queried fields to speed up database reads.",
+            "Leveraged Cloudinary's CDN for optimized image delivery, reducing bandwidth and load times.",
+          ],
+        },
+        {
+          title: "UI/UX Decisions",
+          paragraphs: [
+            "The design philosophy centered on creating a premium, focused environment:",
+          ],
+          bullets: [
+            "Dark Mode Default: Reduces eye strain for long learning sessions and provides a sleek, modern aesthetic.",
+            "Glassmorphism: Used for modals and cards to create depth and hierarchy without cluttered borders.",
+            "Micro-Animations: Added subtle hover and transition effects to make the interface feel alive and responsive.",
+            "Intuitive Navigation: Kept the sidebar and routing simple so users can find courses and lessons instantly.",
+          ],
+        },
+        {
+          title: "Security Considerations",
+          paragraphs: [
+            "Security was a primary focus from day one, incorporating:",
+          ],
+          bullets: [
+            "Helmet: Secures Express apps by setting various HTTP headers.",
+            "Express-Rate-Limit: Protects against brute-force and DDoS attacks by limiting repeated requests.",
+            "Zod Validation: Prevents NoSQL injections and data corruption by strictly enforcing schema types on all incoming data.",
+            "JWT: Secure, stateless authentication for user sessions.",
+            "Bcrypt: Secure password hashing before storing credentials in the database.",
+          ],
+        },
+        {
+          title: "Results / Outcomes",
+          paragraphs: [
+            "The culmination of this project resulted in a production-ready application that:",
+          ],
+          bullets: [
+            "Delivers a seamless, high-quality learning experience for users.",
+            "Provides a powerful, yet easy-to-use administrative interface for content creators.",
+            "Demonstrates a strong understanding of full-stack development, API security, and modern UI design.",
+          ],
+        },
+        {
+          title: "What I Learned",
+          paragraphs: [
+            "This project provided invaluable experience in several key areas:",
+          ],
+          bullets: [
+            "Implementing robust security measures (Helmet, Rate Limiting, Validation) in a Node.js environment.",
+            "Integrating third-party services like Cloudinary and Razorpay into a seamless workflow.",
+            "Building a complete, end-to-end application architecture from database modeling to UI deployment.",
+            "The importance of structured logging (Winston/Morgan) for debugging and observability.",
+          ],
+        },
+        {
+          title: "Future Improvements",
+          paragraphs: [
+            "While the application is fully functional, there are areas for future enhancement:",
+          ],
+          bullets: [
+            "Implement unit and integration testing (e.g., using Jest and Supertest).",
+            "Add a community forum or discussion board for individual courses.",
+            "Integrate analytics to track student progress and course popularity.",
+            "Implement advanced caching mechanisms (like Redis) for frequently accessed data.",
+          ],
+        },
+        {
+          title: "Disclaimer",
+          paragraphs: [
+            "This project is an educational showcase and portfolio piece.",
+          ],
+          bullets: [
+            "All course content and user data are mock data used for demonstration purposes.",
+            "The application is not actively monitored for commercial use.",
+            "Payment gateways are configured in test mode.",
+          ],
+        },
+      ],
+    },
   },
 ];
 
