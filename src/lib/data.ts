@@ -410,13 +410,13 @@ export const projects: Project[] = [
     },
   },
   {
-    slug: "student-github-reviewer",
-    title: "Student GitHub Reviewer",
+    slug: "devscope",
+    title: "DevScope",
     description:
       "An AI-powered app that analyzes a GitHub profile and repositories, then returns mentorship-style feedback with actionable portfolio guidance.",
-    image: "/projects/student-github-reviewer-card.jpg",
+    image: "/projects/devscope-card.png",
     tags: ["Streamlit", "FastAPI", "LangGraph", "Groq"],
-    link: "https://github-reviewer-ui-p5e6.onrender.com/",
+    link: "https://devscope-q72q.onrender.com/",
     github: "https://github.com/14-himanshu/student-github-reviewer",
     highlights: [
       "Mentor-style feedback",
@@ -426,12 +426,12 @@ export const projects: Project[] = [
     ],
     caseStudy: {
       summary:
-        "Student GitHub Reviewer is an AI-powered app that analyzes a GitHub user’s profile and repositories, then returns mentorship-style feedback on their portfolio.",
+        "DevScope is an AI-powered app that analyzes a GitHub user’s profile and repositories, then returns mentorship-style feedback on their portfolio.",
       sections: [
         {
           title: "Project Summary",
           paragraphs: [
-            "Student GitHub Reviewer analyzes a GitHub profile and repository set, then converts that information into practical, mentorship-style feedback.",
+            "DevScope analyzes a GitHub profile and repository set, then converts that information into practical, mentorship-style feedback.",
             "The app is designed to help students understand how their public work reads to a reviewer and what they can improve next.",
           ],
         },
