@@ -110,6 +110,12 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
               ))}
             </div>
 
+            {section.code && (
+              <pre className="mt-6 overflow-x-auto rounded-2xl border border-border/60 bg-background/40 p-6 font-mono text-sm leading-relaxed text-foreground whitespace-pre">
+                <code>{section.code}</code>
+              </pre>
+            )}
+
             {section.bullets && section.bullets.length > 0 && (
               <ul className="mt-6 grid gap-3">
                 {section.bullets.map((bullet) => (
@@ -118,7 +124,7 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
                     className="flex gap-3 rounded-2xl border border-border/60 bg-background/60 px-4 py-3 text-muted-foreground"
                   >
                     <span className="mt-2 h-2 w-2 rounded-full bg-primary shrink-0" />
-                    <span>{bullet}</span>
+                    <span className="whitespace-pre-line">{bullet}</span>
                   </li>
                 ))}
               </ul>
