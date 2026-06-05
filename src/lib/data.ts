@@ -3,6 +3,7 @@ export type CaseStudySection = {
   paragraphs: string[];
   bullets?: string[];
   quote?: string;
+  code?: string;
 };
 
 export type ProjectCaseStudy = {
@@ -28,7 +29,7 @@ export const projects: Project[] = [
     title: "Second Brain",
     description:
       "A full-stack knowledge workspace that captures links, videos, documents, and notes, then turns them into searchable, AI-summarized knowledge with background ingestion and semantic retrieval.",
-    image: "/projects/second-brain-preview.jpg",
+    image: "/projects/second-brain-preview.png",
     tags: ["React", "Express", "MongoDB", "AI Search"],
     link: "https://secondbrain-chi.vercel.app/signin",
     github: "https://github.com/14-himanshu/secondbrain-monorepo",
@@ -40,179 +41,107 @@ export const projects: Project[] = [
     ],
     caseStudy: {
       summary:
-        "Second Brain is a full-stack knowledge workspace that helps users save links, videos, documents, and notes in one place, then organize and retrieve them with AI-assisted search and summaries.",
+        "A full-stack personal knowledge workspace featuring automated ingestion workers, hybrid semantic search, context-grounded AI synthesis (RAG), and a subscription-based upgrade funnel.",
       sections: [
         {
           title: "Overview",
           paragraphs: [
-            "Second Brain turns raw saved content into structured, searchable knowledge. Instead of keeping information scattered across tabs, bookmarks, docs, and social posts, the app centralizes it and makes it easier to resurface later.",
+            "Second Brain is a decentralized cognitive extension for modern professionals, developers, and researchers. Built on a modular monorepo architecture, the application aggregates scattered bookmarks, articles, tweets, documents, and transcripts into a unified portal.",
+            "By utilizing vector database indexes, it creates a personal semantic web of knowledge—allowing users to search their memories, generate automated AI summaries, and converse with their database through a context-grounded AI assistant.",
           ],
         },
         {
           title: "Problem Statement",
           paragraphs: [
-            "Most people store knowledge across browser tabs, bookmarks, docs, and social platforms. Traditional bookmark tools are static: they do not summarize content, connect related ideas, or make retrieval easy when memory fades.",
-            "Users need a system that can capture content quickly and surface the right context later.",
-          ],
-        },
-        {
-          title: "Goal",
-          paragraphs: [
-            "Build a scalable personal knowledge platform that supports fast content capture, secure authentication, semantic retrieval, AI-generated summaries and insights, and controlled sharing across private, link-based, and public modes.",
-          ],
-        },
-        {
-          title: "Solution",
-          paragraphs: [
-            "The platform stores user content in MongoDB, generates embeddings, and runs background AI processing through a queue worker. On the frontend, React Query powers data fetching and optimistic updates, while semantic search and AI insight panels help users move from saved link to usable knowledge.",
-          ],
-        },
-        {
-          title: "Features",
-          paragraphs: [
-            "The product is designed around a capture-first workflow with AI assisted retrieval.",
+            "With the explosion of daily digital consumption, users suffer from information fragmentation. Bookmarks get lost in browser folders, articles sit unread, and videos lack text searchability.",
+            "Moreover, engineering a unified knowledge capture system poses severe technical challenges:",
           ],
           bullets: [
-            "Content capture pipeline for posts, videos, and documents with URL normalization and metadata extraction.",
-            "Semantic search using vector search with text-search fallback for meaning-based retrieval.",
-            "AI synthesis workflow that generates summaries, tags, and topic intelligence for saved content.",
-            "Background ingestion via queue worker to avoid blocking user actions.",
-            "Google OAuth support for sign-in and integration flows.",
-            "Share controls with private, link-based, and public visibility modes.",
-            "AI chat over the personal knowledge base with source-aware responses.",
-            "Manual fallback path for protected or unreadable sources so users can paste content and continue processing.",
+            "Scraper Blockades: Major platforms (like YouTube, Google, and Notion) block standard data center IP addresses (Render, AWS, Vercel) with captchas and 429 errors.",
+            "Credit Consumption & Quotas: Synthesizing deep AI insights is expensive; without strict conversion funnels, manual extraction costs can scale unsustainably.",
+            "Account Duplication: Users signing up via email/password often create duplicate accounts when later attempting to authenticate via Google OAuth.",
+          ],
+        },
+        {
+          title: "The Goal",
+          paragraphs: [
+            "To build a resilient, secure personal knowledge system with zero capture friction. The platform must automate ingestion (scraping pages, downloading video transcripts), support fast semantic vector query lookups, and feature a robust conversion funnel that restricts free users to a monthly quota while providing a seamless upgrade route to Pro.",
+          ],
+        },
+        {
+          title: "Key Features",
+          paragraphs: [
+            "Second Brain is packed with robust capabilities designed to minimize friction while keeping the architecture modular and clean:",
+          ],
+          bullets: [
+            "Resilient Multi-Source Ingestion: Automatic parsing of articles, Notion pages, Reddit posts, Twitter feeds, and YouTube transcripts. Features an automatic public oEmbed API fallback to bypass data center IP blocks.",
+            "Descriptive RAG Chat & Cited Sources: A sidebar assistant that answers questions using only stored content, rendering descriptive inline badges with truncated card titles (e.g. [1] Ram Singh Verma...) and interactive source cards showing document details.",
+            "SaaS Pro Upgrade Funnel: Restricts free users to 5 manual neural extractions. Exceeding the quota displays a premium, glassmorphic conversion modal directing the user to a tab-linked billing settings panel (/settings?tab=billing) backed by a Razorpay payment gateway and an animated success completion page.",
+            "Dynamic Settings & Privacy Panel: Allows users to manage custom profiles, set security passwords, toggle integrations, delete accounts, and update AI preferences (such as auto-tagging default states).",
           ],
         },
         {
           title: "Tech Stack",
           paragraphs: [
-            "The stack was chosen to balance product speed, AI flexibility, and maintainability.",
+            "The architecture consists of standard web layers coupled with background processors and queue workers:",
           ],
           bullets: [
-            "Frontend: React 19, TypeScript, Vite, React Router, Tailwind CSS, React Query.",
-            "Backend: Node.js, Express 5, TypeScript, Mongoose, Zod, JWT, bcrypt.",
-            "AI / Processing: OpenAI or Groq providers, Xenova/all-MiniLM-L6-v2 embeddings, BullMQ, Redis.",
-            "Database: MongoDB with text indexes and vector-search compatible flow.",
-            "Shared package: @secondbrain/contracts for DTO and enum consistency.",
-            "Deployment: Vercel for the frontend, Render for the backend and worker, MongoDB Atlas, and Redis.",
+            "Frontend: React, TypeScript, Vite, React Router, Axios, Tailwind CSS, TanStack Query",
+            "Backend: Node.js, Express, TypeScript, MongoDB, Mongoose, Redis (BullMQ queues), Razorpay",
+            "Shared Layer: @secondbrain/contracts (Shared TypeScript DTO definitions and interfaces)",
+            "AI & Ingestion: Groq & OpenAI APIs, standard Vector Embeddings, Puppeteer & JSDOM, youtube-transcript",
           ],
         },
         {
-          title: "Architecture / Workflow",
+          title: "Architecture & Workflow",
           paragraphs: [
-            "The system is built around a simple request then enrich workflow so users never wait on heavy AI tasks.",
+            "The monorepo separates ingestion services and public API routes to isolate heavy scraping tasks from user interactions:",
           ],
+          code: `[User Action] ──> [React App] ──> [Express API]
+                                     │ (Check Quota & Deduct)
+                                     ▼
+[MongoDB Atlas] <── [AI Services] <── [Queue Workers] <── [Ingestion Pipeline]
+      │                                                         │
+      │ (Create Vector Embeddings)                              ▼
+      └───────────────────────────────────────────> [oEmbed API / Puppeteer]`,
           bullets: [
-            "Routing: React Router handles /, /signin, /signup, /share/:id, OAuth callbacks, and integration callbacks.",
-            "State management: React Query handles server state, while local component state and localStorage hold UI preferences.",
-            "API flow: Axios interceptors normalize errors and inject bearer tokens automatically.",
-            "Authentication: Username and password auth uses bcrypt plus JWT, and Google OAuth uses a callback and code exchange.",
-            "Database interaction: Mongoose models store users, content, and share links with performance-oriented indexes.",
-            "Data flow: content is saved immediately, then background AI and embedding jobs enrich it asynchronously.",
+            "Capture: The user saves a link. The Express API checks the user's plan and deducts credits (if on a free tier).",
+            "Ingestion: The link is queued. Extraction workers retrieve transcripts or fetch page content.",
+            "Synthesis: The AI summarizes the text, extracts key ideas, identifies difficulty tags, and generates vector embeddings stored in MongoDB.",
+            "Interactive Retrieval (RAG): The user queries the chat panel. The system generates query embeddings, performs a hybrid (vector + text) lookup, and feeds the top grounded context to the LLM to write a cited response.",
           ],
         },
         {
-          title: "Challenges Faced",
+          title: "Key Challenges & Resolutions",
           paragraphs: [
-            "The hardest part was making AI retrieval dependable without forcing ideal-path assumptions.",
+            "Resolving complex operational and integration issues was essential to make the application reliable in production:",
           ],
           bullets: [
-            "Reliable AI retrieval across environments was solved with a three-tier retrieval strategy: vector search, text search, then in-memory cosine and recency fallback.",
-            "Latency versus UX quality was solved by decoupling ingestion into background workers and showing progressive AI states in the UI.",
-            "OAuth complexity across login and integration use cases was solved by separating login scopes from account-connect scopes.",
-            "Protected-source ingestion limitations were solved with a manual-content fallback in the UI.",
-            "Consistency between frontend and backend contracts was solved with a shared contracts package in the monorepo.",
+            "Challenge 1: Data Center IP Blocks on YouTube Scraper\n• The Problem: Standard watch page scrapes and transcript downloads failed with 429 Too Many Requests or captchas when executed from deployed server environments (Render/Vercel) due to IP address flagging by Google.\n• The Resolution: Built an automatic fallback using YouTube's public, unauthenticated oEmbed API. If the standard watch page HTML fetch fails, the worker queries the oEmbed endpoint to retrieve the video title, author, and description, saving the bookmark successfully as processed rather than failing.",
+            "Challenge 2: Duplicate Account Creation with OAuth\n• The Problem: Users who registered with username/password would experience duplicate account creation when later selecting \"Sign in with Google\", even if they used the exact same email address.\n• The Resolution: Redesigned the Google callback controller lookup to query both the username and primary email fields. If a matched record is found, it merges the Google integration details into the existing profile rather than writing a duplicate user document.",
+            "Challenge 3: stuck-State Cron Recovery Loops\n• The Problem: A background cron recovery job meant to re-evaluate failed or stuck extraction items query-targeted all \"pending\" records, which caused newly saved free bookmarks to automatically process, bypassing the free tier limits.\n• The Resolution: Restructured the MongoDB query filter to target strictly queued or processing ingestion states, ensuring newly created free bookmarks remain untouched until manual user extraction is initiated.",
           ],
         },
         {
-          title: "Performance & Optimization",
+          title: "Performance & UI/UX Optimizations",
           paragraphs: [
-            "The app emphasizes responsive feedback and avoids wasted work wherever possible.",
+            "User engagement relies heavily on latency and design polish:",
           ],
           bullets: [
-            "Debounced semantic search to reduce noisy API traffic.",
-            "React Query stale-time tuning and selective invalidation to minimize unnecessary refetches.",
-            "Optimistic UI updates for edit and delete actions.",
-            "Targeted polling only for currently selected content under AI processing.",
-            "Background queue processing for heavy AI work.",
-            "Puppeteer scraping optimization by blocking non-critical resources like images, fonts, and styles.",
-            "Progressive rendering patterns and responsive layout behavior for desktop and mobile flows.",
+            "Hybrid Context Caching: Integrated a 5-minute memory cache map for vector searches on repetitive chat queries to minimize database lookups and speed up response times.",
+            "Conversion Modal UX: Replaced native browser window.alert messages with a modern glassmorphic conversion modal containing Sparks icons, checklists of unlocked Pro features, and direct billing tab redirection.",
+            "De-congested Navigation: Refactored the dashboard sidebar to compress the profile settings and logout options, maximizing the space available for user folders and saved nodes.",
           ],
         },
         {
-          title: "UI/UX Decisions",
+          title: "Results & Key Learnings",
           paragraphs: [
-            "The interface was designed around a single dashboard so users could stay in one place while moving from capture to insight.",
+            "Synthesizing multiple service APIs taught us the importance of system design beyond simple endpoints:",
           ],
           bullets: [
-            "Single-dashboard workflow so creation, search, filtering, and AI insights happen together.",
-            "Clear processing states such as queued, processing, and failed to improve trust during asynchronous AI work.",
-            "Mobile-first sidebar controls and adaptable layout for smaller screens.",
-            "Direct source access from cards to preserve transparency and verification.",
-            "Manual synthesis entry when automated extraction fails so the user never hits a dead end.",
-          ],
-        },
-        {
-          title: "Security Considerations",
-          paragraphs: [
-            "Security was handled with the usual production basics plus a few content-specific controls.",
-          ],
-          bullets: [
-            "Passwords are hashed with bcrypt.",
-            "Protected endpoints use JWT middleware and bearer-token verification.",
-            "Request payloads are validated with Zod to reduce malformed-input risk.",
-            "OAuth integration stores encrypted token fields where available.",
-            "CORS is configured using allowed frontend origins.",
-            "Token handling is centralized through API client interceptors and backend middleware checks.",
-          ],
-        },
-        {
-          title: "Results / Outcomes",
-          paragraphs: [
-            "The final result is a production-ready full-stack knowledge app with AI-assisted retrieval and synthesis.",
-          ],
-          bullets: [
-            "Reduced friction from save now, forget later by enabling semantic recall and contextual insights.",
-            "Established a maintainable monorepo architecture with shared contracts and clean frontend/backend boundaries.",
-            "Created a flexible foundation for adding more integrations and advanced retrieval features.",
-          ],
-        },
-        {
-          title: "What I Learned",
-          paragraphs: [
-            "The project reinforced that production AI needs reliable fallback paths and clear UX, not just ideal model calls.",
-          ],
-          bullets: [
-            "Graceful fallback paths matter more than optimistic model assumptions.",
-            "Queue-based processing is essential when balancing user-perceived speed with heavy compute.",
-            "Shared type contracts significantly reduce integration bugs across frontend and backend.",
-            "Good AI product UX depends on communicating state, confidence, and failure modes clearly.",
-          ],
-        },
-        {
-          title: "Future Improvements",
-          paragraphs: [
-            "The current foundation is strong, but there is room to push discovery, analytics, and collaboration further.",
-          ],
-          bullets: [
-            "Add per-user analytics on retrieval quality and insight usefulness.",
-            "Introduce stronger token-hardening policies with encryption-required mode.",
-            "Add role-based access and team or shared-workspace support.",
-            "Expand connectors beyond Google with Notion, Slack, and GitHub.",
-            "Improve AI ranking with reranking and hybrid retrieval tuning.",
-            "Add end-to-end observability dashboards for queue latency, provider errors, and search success rates.",
-          ],
-        },
-        {
-          title: "Deployment",
-          paragraphs: [
-            "The app is deployed as a split production system so the UI can stay fast while background AI work remains isolated.",
-          ],
-          bullets: [
-            "Frontend: deployed on Vercel with SPA rewrite rules for client-side routing.",
-            "Backend API and worker: deployed on Render as separate services.",
-            "Data and infrastructure: MongoDB Atlas for persistence and Redis for queue orchestration.",
-            "Environment management: separate configs for API URLs, OAuth, JWT secrets, AI providers, and queue settings.",
+            "Resilient API Design: Learned that relying purely on HTML parsing is fragile for web-scale scraping; integrating public metadata API fallbacks (like oEmbed) is critical for ingestion pipeline uptime.",
+            "Idempotent Queuing: Designed strict worker queues and job status workflows to prevent credit consumption race conditions when tasks execute asynchronously.",
+            "SaaS Funnels: Gained experience in creating elegant conversion loops that elevate standard tool utility into a monetization-ready product.",
           ],
         },
       ],
