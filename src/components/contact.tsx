@@ -70,7 +70,7 @@ export function Contact() {
                 </div>
                 <div>
                   <p className="text-xs font-mono text-muted-foreground uppercase tracking-wider mb-1">Email Me</p>
-                  <p className="text-xl font-bold">himanshu.premote@gmail.com</p>
+                  <p className="text-xl font-bold">himanshupandey.sde@gmail.com</p>
                 </div>
               </div>
               <div className="flex items-center gap-6 group">
