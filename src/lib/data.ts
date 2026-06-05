@@ -430,41 +430,118 @@ export const projects: Project[] = [
     slug: "coursespace",
     title: "CourseSpace",
     description:
-      "A modern, responsive e-learning platform to master your craft with world-class courses and top instructors.",
+      "A modern, premium SaaS e-learning platform built using the MERN stack, offering robust content delivery, Cloudinary media processing, and hardened API security.",
     image: "/projects/coursespace-card.png",
-    tags: ["Next.js", "TypeScript", "Tailwind CSS"],
+    tags: ["React", "Express", "MongoDB", "Node.js"],
     link: "https://coursespace-xi.vercel.app/",
     github: "https://github.com/14-himanshu/coursespace",
     highlights: [
-      "Intuitive course discovery",
-      "Modern UI/UX",
-      "Responsive design",
-      "Next.js App Router"
+      "Zod schema validation",
+      "Cloudinary CDN uploads",
+      "IP rate limiters & security",
+      "Winston & Morgan logs",
     ],
     caseStudy: {
       summary:
-        "CourseSpace is a modern e-learning platform designed to connect students with world-class instructors.",
+        "CourseSpace is a modern, premium SaaS Course Selling platform built using the MERN stack. Designed with a dark-mode first aesthetic, it provides seamless content delivery for students and a complete CRUD management system for course creators.",
       sections: [
         {
-          title: "Overview",
+          title: "Overview & Elevator Pitch",
           paragraphs: [
-            "CourseSpace provides a clean, fast, and accessible interface for discovering and consuming educational content.",
+            "The e-learning industry is crowded with platforms that either charge high transaction fees or suffer from poor visual execution and fragile security. CourseSpace was engineered to solve these bottlenecks.",
+            "It is a self-hosted, scalable, and secure SaaS application that combines a smooth, glassmorphic UI with hardened security protocols, automatic media optimization, and robust system observability.",
           ],
         },
         {
-          title: "Problem Statement",
+          title: "The Problem Statement",
           paragraphs: [
-            "Many online learning platforms suffer from cluttered interfaces and slow load times, creating friction for students.",
+            "Typical DIY course-selling websites face several core engineering and product challenges:",
+          ],
+          bullets: [
+            "Security Vulnerabilities: Open endpoints leave courses vulnerable to unauthorized downloads, brute-force admin logins, and NoSQL injections.",
+            "Media Management Complexity: Storing high-resolution course thumbnails and lesson videos locally slows down request speeds and balloons hosting costs.",
+            "Cluttered UI/UX: Traditional dashboards are often visually dry and non-responsive, degrading the learning experience.",
+            "Zero Production Observability: When server errors or bad requests occur in production, developers are left in the dark without physical logs.",
           ],
         },
         {
-          title: "Goal",
+          title: "The Solution",
           paragraphs: [
-            "Build an intuitive and fast e-learning storefront that prioritizes content discovery and a smooth user experience.",
+            "CourseSpace addresses these issues directly by decoupling client-side presentation from core business logic, resulting in:",
           ],
-        }
-      ]
-    }
+          bullets: [
+            "A hardened backend protected by security headers (helmet), IP rate limiters, and zod schema validations.",
+            "Offloaded media processing via integration with the Cloudinary CDN.",
+            "A beautifully animated, theme-aware React frontend using vanilla CSS variables for glassmorphism and responsiveness.",
+            "Production logging through physical rolling file logs using winston and morgan.",
+          ],
+        },
+        {
+          title: "System Architecture & Schema Design",
+          paragraphs: [
+            "The architecture separates core application concern layers while using strict validation schemas and middleware guards to isolate administrative actions:",
+            "The relational relationships inside MongoDB are strictly maintained using ObjectIds and model references:",
+          ],
+          code: `[Student / Admin Client] ──> [Frontend Client (React/Vite)]
+                                    │ (HTTPS Requests)
+                                    ▼
+                     [Rate Limiter & Helmet Headers]
+                                    │ (Validated Payload)
+                                    ▼
+                          [Express API Router]
+                       ┌────────────┴────────────┐
+                       ▼                         ▼
+            [Admin Auth Middleware]    [User Auth Middleware]
+             (Multer Buffer stream)              │
+                       ├─────────────────────────┤
+                       ▼                         ▼
+               [Cloudinary CDN]           [MongoDB Atlas]
+                                                 ▲
+                                                 │
+          [Winston Logger] <── [Morgan Stream] ──┘`,
+          bullets: [
+            "Users / Admins: Distinct collections keeping authentication credentials separated. Passwords are encrypted using bcrypt (salt rounds: 5).",
+            "Courses: Tracks titles, descriptions, pricing, and creator IDs.",
+            "Lessons: Linked to Courses with a 1-to-many relationship (ref: 'courses'), storing descriptions, video URLs, and order priorities.",
+            "Purchases: Join-table collection mapping courseId to userId to authorize video stream access.",
+          ],
+        },
+        {
+          title: "Key Engineering Highlights & Code Patterns",
+          paragraphs: [
+            "Engineering focus was centered around payload integrity, secure storage pipelines, and robust debugging paths:",
+          ],
+          bullets: [
+            "A. Strict Payload Validation & Schema Protection (Zod):\nTo prevent malicious database inputs and NoSQL injections, all incoming payloads are run through strict schemas before processing:\n\nconst zodadminschema = z.object({\n  email: z.string().email(),\n  password: z.string().min(6).regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])/),\n  firstName: z.string().min(3).max(20),\n  lastName: z.string().min(3).max(20)\n});",
+            "B. Cloud Media Pipeline (Cloudinary + Multer):\nCourse creators can upload custom course thumbnails. The backend intercepts the file buffer via multer and streams it directly to Cloudinary to keep the application stateless:\n\nadminRouter.post(\"/course\", adminMiddleware, upload.single(\"image\"), async function (req, res, next) {\n  const adminId = req.userId;\n  const { title, description, price } = createCourseSchema.parse(req.body);\n  const course = await courseModel.create({\n    title, description, price, imageUrl: req.file.path, createrId: adminId\n  });\n});",
+            "C. Hardened API Security Middlewares:\nThe server uses helmet to manage HTTP security headers and prevents DDoS/brute-force attacks with IP rate limiting:\n\nconst rateLimit = require(\"express-rate-limit\");\nconst limiter = rateLimit({\n  windowMs: 15 * 60 * 1000,\n  max: 100,\n  standardHeaders: true,\n  legacyHeaders: false\n});",
+            "D. Observability & Logging:\nAll incoming HTTP requests and internal execution errors are logged directly to filesystem streams using winston and morgan:\n\napp.use(morgan('combined', { stream: { write: message => logger.info(message.trim()) } }));",
+          ],
+        },
+        {
+          title: "Challenges Faced & Key Resolutions",
+          paragraphs: [
+            "Developing and optimizing CourseSpace presented several complex integration challenges:",
+          ],
+          bullets: [
+            "Challenge 1: Video Security & Embedded Content Control\n• Issue: Direct exposure of video files results in pirated content.\n• Resolution: Implemented a robust YouTube Player API overlay in React. Raw video identifiers are rendered through an custom player container, blocking context-menus and using sandboxed iframe attributes to prevent students from inspecting source links or leaving the viewport.",
+            "Challenge 2: Decoupled Styling Without Layout Shifts (CLS)\n• Issue: Using massive UI component libraries caused cumulative layout shifts on slow networks and custom theme mismatches.\n• Resolution: Wrote structured Vanilla CSS from scratch using HSL design tokens. Set custom variables inside :root (for light theme) and [data-theme=\"dark\"] to toggle global themes instantly with CSS transitions.",
+          ],
+        },
+        {
+          title: "Results & Key Takeaways",
+          paragraphs: [
+            "The final delivery met all validation metrics and established clean deployment practices:",
+          ],
+          bullets: [
+            "Observability: Added logging reduced troubleshooting time in production down to seconds by having searchable physical logs.",
+            "Stateless Scaling: Moving course thumbnail processing to Cloudinary allowed the backend instances to scale horizontally without syncing local directories.",
+            "Security Confidence: Zero payload validation bypasses during stress testing due to Zod's strict schema verification before database operations.",
+            "Responsive Design: 100% mobile responsiveness achieved using CSS grid and flexbox, ensuring smooth usage on tablets, mobile devices, and desktops.",
+          ],
+        },
+      ],
+    },
   },
 ];
 
