@@ -446,7 +446,7 @@ export const projects: Project[] = [
         "CourseSpace is a modern, premium SaaS Course Selling platform built using the MERN stack. Designed with a dark-mode first aesthetic, it provides seamless content delivery for students and a complete CRUD management system for course creators.",
       sections: [
         {
-          title: "Overview & Elevator Pitch",
+          title: "Overview",
           paragraphs: [
             "The e-learning industry is crowded with platforms that either charge high transaction fees or suffer from poor visual execution and fragile security. CourseSpace was engineered to solve these bottlenecks.",
             "It is a self-hosted, scalable, and secure SaaS application that combines a smooth, glassmorphic UI with hardened security protocols, automatic media optimization, and robust system observability.",
