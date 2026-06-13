@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { projects } from "@/lib/data";
 import { ProjectCaseStudy } from "@/components/project-case-study";
+import { Navbar } from "@/components/navbar";
 
 type Params = Promise<{
   slug: string;
@@ -39,5 +40,10 @@ export default async function ProjectPage({ params }: { params: Params }) {
     notFound();
   }
 
-  return <ProjectCaseStudy project={project} />;
+  return (
+    <>
+      <Navbar />
+      <ProjectCaseStudy project={project} />
+    </>
+  );
 }

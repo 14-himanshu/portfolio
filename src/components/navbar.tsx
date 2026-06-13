@@ -107,6 +107,7 @@ export function Navbar() {
           <Link
             href="https://github.com/14-himanshu"
             target="_blank"
+            aria-label="GitHub profile"
             className="p-2.5 hover:bg-primary/5 rounded-full transition-all group"
           >
             <FaGithub className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
@@ -114,6 +115,7 @@ export function Navbar() {
           <Link
             href="https://www.linkedin.com/in/himanshupandey14/"
             target="_blank"
+            aria-label="LinkedIn profile"
             className="p-2.5 hover:bg-primary/5 rounded-full transition-all group"
           >
             <FaLinkedin className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
@@ -133,8 +135,8 @@ export function Navbar() {
           </button>
         </div>
 
-        <div className="hidden sm:block w-[1px] h-6 bg-border/50 mx-1" />
-        <div className="hidden sm:block">
+        <div className="w-[1px] h-6 bg-border/50 mx-1" />
+        <div>
           <LiveVisitors />
         </div>
       </motion.div>
