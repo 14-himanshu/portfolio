@@ -18,83 +18,22 @@ const technicalFacts = [
   { label: "SaaS billing funnel in production", detail: "Razorpay + upgrade modal" },
 ]
 
-// ── Subtle background topology — 7 abstract nodes connected by faint edges ────
-// Same visual language as the arch diagrams. No labels. Just topology.
-const topoNodes = [
-  { id: "a", cx: 12,  cy: 18  },
-  { id: "b", cx: 35,  cy: 8   },
-  { id: "c", cx: 62,  cy: 14  },
-  { id: "d", cx: 85,  cy: 22  },
-  { id: "e", cx: 88,  cy: 55  },
-  { id: "f", cx: 55,  cy: 68  },
-  { id: "g", cx: 20,  cy: 58  },
-  { id: "h", cx: 48,  cy: 38  }, // central hub
-]
-const topoEdges = [
-  ["a","b"], ["b","c"], ["c","d"], ["d","e"],
-  ["e","f"], ["f","g"], ["g","a"],
-  ["b","h"], ["c","h"], ["e","h"], ["f","h"], ["g","h"],
-]
-
-function SystemTopology() {
+// ── Professional dot-grid background ────────────────────────────────────────
+// Same visual language as the architecture diagram canvases — fine, subtle,
+// reads as "technical" without forming any visible geometric shape.
+function DotGrid() {
   return (
     <svg
-      viewBox="0 0 100 80"
-      preserveAspectRatio="xMidYMid slice"
       className="absolute inset-0 w-full h-full pointer-events-none"
+      xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
     >
-      {/* Edges */}
-      {topoEdges.map(([a, b], i) => {
-        const na = topoNodes.find(n => n.id === a)!
-        const nb = topoNodes.find(n => n.id === b)!
-        return (
-          <motion.line
-            key={`${a}-${b}`}
-            x1={na.cx} y1={na.cy}
-            x2={nb.cx} y2={nb.cy}
-            stroke="var(--primary)"
-            strokeOpacity="0.06"
-            strokeWidth="0.3"
-            initial={{ pathLength: 0, opacity: 0 }}
-            animate={{ pathLength: 1, opacity: 1 }}
-            transition={{ delay: i * 0.12, duration: 1.2, ease: "easeInOut" }}
-          />
-        )
-      })}
-
-      {/* Nodes */}
-      {topoNodes.map((node, i) => (
-        <motion.g key={node.id}>
-          {/* Outer pulse ring */}
-          <motion.circle
-            cx={node.cx} cy={node.cy} r={node.id === "h" ? 2.4 : 1.5}
-            fill="none"
-            stroke="var(--primary)"
-            strokeOpacity="0.1"
-            strokeWidth="0.4"
-            animate={{ scale: [1, 1.5, 1], opacity: [0.1, 0.25, 0.1] }}
-            transition={{
-              delay: i * 0.3 + 1.5,
-              duration: 3.5,
-              repeat: Infinity,
-              ease: "easeInOut",
-              repeatDelay: 1,
-            }}
-            style={{ transformOrigin: `${node.cx}px ${node.cy}px`, transformBox: "content-box" }}
-          />
-          {/* Inner dot */}
-          <motion.circle
-            cx={node.cx} cy={node.cy} r={node.id === "h" ? 1.2 : 0.7}
-            fill="var(--primary)"
-            fillOpacity={node.id === "h" ? 0.25 : 0.12}
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ delay: i * 0.1 + 0.8, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            style={{ transformOrigin: `${node.cx}px ${node.cy}px`, transformBox: "content-box" }}
-          />
-        </motion.g>
-      ))}
+      <defs>
+        <pattern id="hero-dot-grid" width="28" height="28" patternUnits="userSpaceOnUse">
+          <circle cx="1" cy="1" r="0.65" style={{ fill: "var(--primary)", fillOpacity: 0.18 }} />
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#hero-dot-grid)" />
     </svg>
   )
 }
@@ -121,15 +60,24 @@ export function Hero() {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex flex-col items-center overflow-hidden pt-20 px-4"
+      className="relative min-h-screen flex flex-col items-center overflow-hidden pt-40 md:pt-44 px-4"
     >
-      {/* ── Background topology (z-0) ─────────────────────────────────── */}
-      <div className="absolute inset-0 z-0">
-        <SystemTopology />
+      {/* ── Dot grid background (z-0) ──────────────────────────────────── */}
+      <div className="absolute inset-0 z-0 opacity-100">
+        <DotGrid />
       </div>
 
-      {/* ── Radial glow (z-0) ─────────────────────────────────────────── */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary/8 rounded-full blur-[130px] pointer-events-none z-0" />
+      {/* ── Vignette mask so grid fades at edges ─────────────────────── */}
+      <div
+        className="absolute inset-0 z-[1] pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse 70% 60% at 50% 45%, transparent 30%, var(--background) 100%)",
+        }}
+      />
+
+      {/* ── Soft primary glow centred behind the title (z-0) ─────────── */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-primary/6 rounded-full blur-[140px] pointer-events-none z-[2]" />
 
       {/* ── Main content (z-10) ───────────────────────────────────────── */}
       <div className="flex-1 flex flex-col items-center justify-center w-full max-w-7xl mx-auto relative z-10 text-center">
