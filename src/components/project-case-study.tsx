@@ -11,6 +11,7 @@ import type { Project } from "@/lib/data";
 import Image from "next/image";
 import { architectures } from "@/lib/architecture";
 import { ArchitectureDiagram } from "@/components/architecture-diagram";
+import { BackButton } from "@/components/back-button";
 
 export function ProjectCaseStudy({ project }: { project: Project }) {
   const router = useRouter();
@@ -21,15 +22,7 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
     <main className="min-h-screen pb-24">
       <section className="relative overflow-hidden pt-8 pb-14">
         <div className="container px-4 mx-auto">
-          <button
-            onClick={() =>
-              window.history.length > 1 ? router.back() : router.push("/")
-            }
-            className="inline-flex items-center gap-2 text-sm font-bold text-muted-foreground hover:text-foreground transition-colors"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Back to projects
-          </button>
+          <BackButton label="Back to projects" href="/#projects" />
 
           <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-10 items-center mt-8">
             <div className="space-y-8">

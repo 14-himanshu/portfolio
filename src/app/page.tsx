@@ -1,41 +1,11 @@
 import { Navbar } from "@/components/navbar";
 import { Hero } from "@/components/hero";
 import { ScrollToTop } from "@/components/scroll-to-top";
-import dynamic from "next/dynamic";
 import { resume } from "@/lib/site";
-
-
-// Loading skeleton shared across all below-the-fold sections
-function SectionSkeleton() {
-  return (
-    <div className="py-32 container px-4 mx-auto">
-      <div className="h-12 w-64 rounded-2xl bg-muted/30 animate-pulse mb-8" />
-      <div className="space-y-4">
-        <div className="h-6 w-full rounded-xl bg-muted/20 animate-pulse" />
-        <div className="h-6 w-5/6 rounded-xl bg-muted/20 animate-pulse" />
-        <div className="h-6 w-4/6 rounded-xl bg-muted/20 animate-pulse" />
-      </div>
-    </div>
-  );
-}
-
-// Dynamically import below-the-fold components to reduce initial JavaScript payload
-const Experience = dynamic(
-  () => import("@/components/experience").then((mod) => mod.Experience),
-  { loading: () => <SectionSkeleton /> }
-);
-const Projects = dynamic(
-  () => import("@/components/projects").then((mod) => mod.Projects),
-  { loading: () => <SectionSkeleton /> }
-);
-const Skills = dynamic(
-  () => import("@/components/skills").then((mod) => mod.Skills),
-  { loading: () => <SectionSkeleton /> }
-);
-const Contact = dynamic(
-  () => import("@/components/contact").then((mod) => mod.Contact),
-  { loading: () => <SectionSkeleton /> }
-);
+import { Experience } from "@/components/experience";
+import { Projects } from "@/components/projects";
+import { Skills } from "@/components/skills";
+import { Contact } from "@/components/contact";
 
 export default function Home() {
   return (

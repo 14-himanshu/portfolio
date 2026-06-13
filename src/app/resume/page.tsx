@@ -41,7 +41,7 @@ export default function ResumePage() {
       <Navbar />
       <header className="sticky top-0 z-50 border-b border-border/40 bg-background/80 backdrop-blur-xl">
         <div className="container mx-auto flex flex-wrap items-center justify-between gap-4 px-4 py-4">
-          <BackButton label="Back to portfolio" fallbackHref="/" />
+          <BackButton label="Back to portfolio" href="/" />
           <div className="flex flex-wrap items-center gap-3">
             <a
               href={resume.href}
