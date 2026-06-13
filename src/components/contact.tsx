@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Mail, MessageSquare, Send, CheckCircle2 } from "lucide-react"
+import { Mail, MessageSquare, Send, CheckCircle2, Copy, Check } from "lucide-react"
 import { useState } from "react"
 import { toast } from "sonner"
 import { cn } from "@/lib/utils"
@@ -9,6 +9,20 @@ import { cn } from "@/lib/utils"
 export function Contact() {
   const [loading, setLoading] = useState(false)
   const [submitted, setSubmitted] = useState(false)
+  const [emailCopied, setEmailCopied] = useState(false)
+
+  const EMAIL = "himanshupandey.sde@gmail.com"
+
+  const handleCopyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(EMAIL)
+      setEmailCopied(true)
+      toast.success("Email copied to clipboard!")
+      setTimeout(() => setEmailCopied(false), 2000)
+    } catch {
+      toast.error("Could not copy email.")
+    }
+  }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -35,6 +49,7 @@ export function Contact() {
         toast.error("Failed to send message. Please try again.")
       }
     } catch (error) {
+      console.error("Contact form submission error:", error)
       toast.error("An error occurred. Please try again.")
     } finally {
       setLoading(false)
@@ -70,7 +85,18 @@ export function Contact() {
                 </div>
                 <div>
                   <p className="text-xs font-mono text-muted-foreground uppercase tracking-wider mb-1">Email Me</p>
-                  <p className="text-xl font-bold">himanshupandey.sde@gmail.com</p>
+                  <div className="flex items-center gap-3">
+                    <p className="text-xl font-bold">{EMAIL}</p>
+                    <button
+                      onClick={handleCopyEmail}
+                      title="Copy email"
+                      className="p-1.5 rounded-lg text-muted-foreground hover:text-primary hover:bg-primary/5 transition-all"
+                    >
+                      {emailCopied
+                        ? <Check className="w-4 h-4 text-green-500" />
+                        : <Copy className="w-4 h-4" />}
+                    </button>
+                  </div>
                 </div>
               </div>
               <div className="flex items-center gap-6 group">
@@ -80,7 +106,7 @@ export function Contact() {
                 <div>
                   <p className="text-xs uppercase tracking-widest font-black text-muted-foreground/60 mb-1">Social Channels</p>
                   <p className="text-xl font-bold">
-                    <a href="https://linkedin.com/in/himanshupandey" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">LinkedIn</a>
+                    <a href="https://www.linkedin.com/in/himanshupandey14/" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">LinkedIn</a>
                     {" / "}
                     <a href="https://github.com/14-himanshu" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">GitHub</a>
                   </p>

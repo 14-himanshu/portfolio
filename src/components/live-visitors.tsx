@@ -46,7 +46,7 @@ export function LiveVisitors() {
     };
   }, []);
 
-  // Don't show the indicator if we don't have a count yet (e.g. connecting)
+  // Don't show until we have a confirmed count from Pusher
   if (visitorCount === 0) return null;
 
   return (
