@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowLeft, Download, ExternalLink, FileText } from "lucide-react";
 import { resume } from "@/lib/site";
 import { cn } from "@/lib/utils";
+import { Navbar } from "@/components/navbar";
 
 export const metadata: Metadata = {
   title: "Himanshu Pandey — Resume & CV | Software Engineer",
@@ -36,6 +37,7 @@ export default function ResumePage() {
 
   return (
     <main className="min-h-screen flex flex-col">
+      <Navbar />
       <header className="sticky top-0 z-50 border-b border-border/40 bg-background/80 backdrop-blur-xl">
         <div className="container mx-auto flex flex-wrap items-center justify-between gap-4 px-4 py-4">
           <Link

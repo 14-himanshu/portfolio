@@ -43,7 +43,6 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
-  if (!mounted) return null
 
   const currentTheme = theme === 'system' ? resolvedTheme : theme
 
@@ -121,9 +120,12 @@ export function Navbar() {
           </Link>
           <button
             onClick={() => setTheme(currentTheme === "dark" ? "light" : "dark")}
+            aria-label="Toggle dark mode"
             className="p-2.5 hover:bg-primary/5 rounded-full transition-all group"
           >
-            {currentTheme === "dark" ? (
+            {!mounted ? (
+              <span className="w-5 h-5 block" />
+            ) : currentTheme === "dark" ? (
               <Sun className="w-5 h-5 text-yellow-500 group-hover:rotate-90 transition-transform duration-500" />
             ) : (
               <Moon className="w-5 h-5 text-indigo-600 group-hover:-rotate-12 transition-transform duration-500" />

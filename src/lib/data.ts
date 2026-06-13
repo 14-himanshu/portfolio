@@ -547,18 +547,18 @@ export const projects: Project[] = [
 
 export const experience = [
   {
-    company: "Independent Software Engineer",
-    role: "Full-Stack & AI Integrations",
-    duration: "2023 - Present",
+    company: "2024 — Now",
+    role: "Shipped AI-integrated production systems",
+    duration: "Current Focus",
     description:
-      "Architected and deployed multiple production-ready web applications focusing on real-time communication and AI-driven workflows. Engineered platforms like Second Brain and CourseSpace using Next.js, TypeScript, and MongoDB. Implemented advanced features including WebSocket syncing, semantic search, and background queue processing.",
+      "Built and deployed four production applications across AI, real-time, and SaaS domains. Engineered a BullMQ async ingestion pipeline that survives Render cold starts, solved YouTube's IP block with an oEmbed public-API fallback, and wired LangGraph agent orchestration into a FastAPI backend for multi-step portfolio analysis. Every project is live with real users.",
   },
   {
-    company: "Open Source & Personal Projects",
-    role: "Frontend & Backend Developer",
-    duration: "2022 - 2023",
+    company: "2023 — 2024",
+    role: "Mastered systems from the ground up",
+    duration: "Foundation",
     description:
-      "Mastered core web fundamentals by building responsive, data-intensive applications. Developed secure REST APIs, integrated OAuth authentication, and built complex UI components using React and Tailwind CSS. Emphasized clean code architecture and scalable database design.",
+      "Replaced tutorials with deliberate depth: built raw WebSocket servers instead of reaching for Socket.io, wrote Mongoose schemas with strict validation, and debugged OAuth account-merging edge cases that most developers only read about. This phase was less about shipping and more about understanding what happens when things break at 2am.",
   },
 ];
 
@@ -568,11 +568,15 @@ export const skills = [
   "TypeScript",
   "Tailwind CSS",
   "Node.js",
-  "PostgreSQL",
-  "Prisma",
+  "Express",
+  "FastAPI",
+  "BullMQ",
+  "Redis",
+  "MongoDB",
+  "LangGraph",
+  "Groq",
   "Framer Motion",
   "Git",
-  "Docker",
-  "AWS",
-  "Python",
+  "Vercel",
+  "Razorpay",
 ];
