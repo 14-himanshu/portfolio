@@ -113,7 +113,7 @@ export function Navbar() {
             <FaGithub className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
           </Link>
           <Link
-            href="https://www.linkedin.com/in/himanshu-pandey-a4291b333/"
+            href="https://www.linkedin.com/in/himanshupandey14/"
             target="_blank"
             className="p-2.5 hover:bg-primary/5 rounded-full transition-all group"
           >

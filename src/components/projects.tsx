@@ -27,9 +27,9 @@ export function Projects() {
             </span>
           </h2>
           <p className="text-muted-foreground text-xl leading-relaxed">
-            Three representative builds from my portfolio: one focused on
-            AI-powered knowledge management, one on real-time communication, and
-            one on AI-assisted portfolio review.
+            Four production-grade builds: AI-powered knowledge management,
+            real-time communication, AI-assisted portfolio review, and a
+            full-stack SaaS e-learning platform.
           </p>
         </div>
 
