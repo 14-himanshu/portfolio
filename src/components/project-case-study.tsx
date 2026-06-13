@@ -1,10 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { ArrowLeft, ExternalLink } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
 import { cn } from "@/lib/utils";
 import type { Project } from "@/lib/data";
@@ -14,7 +13,6 @@ import { ArchitectureDiagram } from "@/components/architecture-diagram";
 import { BackButton } from "@/components/back-button";
 
 export function ProjectCaseStudy({ project }: { project: Project }) {
-  const router = useRouter();
   const [showArch, setShowArch] = useState(false);
   const arch = architectures[project.slug];
 

@@ -26,6 +26,7 @@ export function Navbar() {
   const [hoveredItem, setHoveredItem] = useState<string | null>(null)
 
   useEffect(() => {
+    // eslint-disable-next-line
     setMounted(true)
     const handleScroll = () => {
       setScrolled(window.scrollY > 20)

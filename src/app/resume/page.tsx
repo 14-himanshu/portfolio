@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { ArrowLeft, Download, ExternalLink, FileText } from "lucide-react";
+import { Download, ExternalLink, FileText } from "lucide-react";
 import { resume } from "@/lib/site";
 import { cn } from "@/lib/utils";
 import { Navbar } from "@/components/navbar";

@@ -1,7 +1,7 @@
 "use client"
 
-import { motion, AnimatePresence } from "framer-motion"
-import { useId } from "react"
+import { useId } from "react";
+import { motion } from "framer-motion";
 import type { DiagramData } from "@/lib/architecture"
 
 // Node box dimensions (in viewBox units)
