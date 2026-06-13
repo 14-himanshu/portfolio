@@ -63,7 +63,7 @@ export function Hero() {
       className="relative min-h-screen flex flex-col items-center overflow-hidden pt-40 md:pt-44 px-4"
     >
       {/* ── Dot grid background (z-0) ──────────────────────────────────── */}
-      <div className="absolute inset-0 z-0 opacity-100">
+      <div className="absolute inset-0 z-0 pointer-events-none">
         <DotGrid />
       </div>
 

@@ -18,7 +18,7 @@ export function Contact() {
     try {
       await navigator.clipboard.writeText(EMAIL)
       setEmailCopied(true)
-      toast.success("Email copied to clipboard!")
+      toast("Email copied to clipboard", { icon: "📋" })
       setTimeout(() => setEmailCopied(false), 2000)
     } catch {
       toast.error("Could not copy email.")
@@ -93,8 +93,7 @@ export function Contact() {
                       title="Copy email"
                       className="p-1.5 rounded-lg text-muted-foreground hover:text-primary hover:bg-primary/5 transition-all"
                     >
-                      {emailCopied
-                        ? <Check className="w-4 h-4 text-green-500" />
+                        ? <Check className="w-4 h-4 text-primary" />
                         : <Copy className="w-4 h-4" />}
                     </button>
                   </div>
@@ -134,8 +133,8 @@ export function Contact() {
                 animate={{ opacity: 1, scale: 1 }}
                 className="flex flex-col items-center justify-center py-20 text-center space-y-4"
               >
-                <div className="w-20 h-20 rounded-full bg-green-500/10 flex items-center justify-center mb-4">
-                  <CheckCircle2 className="w-10 h-10 text-green-500" />
+                <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                  <CheckCircle2 className="w-10 h-10 text-primary" />
                 </div>
                 <h3 className="text-2xl font-bold">Message Received!</h3>
                 <p className="text-muted-foreground">Thanks for reaching out. I&apos;ll get back to you as soon as possible.</p>
