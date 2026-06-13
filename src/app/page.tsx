@@ -49,18 +49,18 @@ export default function Home() {
 
       <footer className="py-12 border-t border-border/50 text-center text-muted-foreground text-sm">
         <div className="container px-4 flex flex-col items-center justify-center gap-5">
-          <div className="flex items-center justify-center gap-5">
+          <div className="flex items-center justify-center gap-3 text-sm font-bold text-foreground/80">
             <a
               href={resume.viewPath}
-              className="text-sm font-bold text-foreground/80 hover:text-primary transition-colors"
+              className="hover:text-primary transition-colors"
             >
               View resume
             </a>
-            <span className="w-1.5 h-1.5 rounded-full bg-border"></span>
+            <span className="text-border/50 text-[10px] leading-none mb-[2px]">&#9679;</span>
             <a
               href={resume.href}
               download={resume.fileName}
-              className="text-sm font-bold text-foreground/80 hover:text-primary transition-colors"
+              className="hover:text-primary transition-colors"
             >
               Download PDF
             </a>
