@@ -4,6 +4,7 @@ import { ScrollToTop } from "@/components/scroll-to-top";
 import dynamic from "next/dynamic";
 import { resume } from "@/lib/site";
 
+
 // Loading skeleton shared across all below-the-fold sections
 function SectionSkeleton() {
   return (
@@ -47,24 +48,26 @@ export default function Home() {
       <Contact />
 
       <footer className="py-12 border-t border-border/50 text-center text-muted-foreground text-sm">
-        <div className="container px-4 space-y-3">
-          <p>
+        <div className="container px-4 flex flex-col items-center justify-center gap-5">
+          <div className="flex items-center justify-center gap-5">
             <a
               href={resume.viewPath}
-              className="font-bold text-foreground/80 hover:text-primary transition-colors"
+              className="text-sm font-bold text-foreground/80 hover:text-primary transition-colors"
             >
               View resume
             </a>
-            <span className="mx-2 text-border">·</span>
+            <span className="w-1.5 h-1.5 rounded-full bg-border"></span>
             <a
               href={resume.href}
               download={resume.fileName}
-              className="font-bold text-foreground/80 hover:text-primary transition-colors"
+              className="text-sm font-bold text-foreground/80 hover:text-primary transition-colors"
             >
               Download PDF
             </a>
+          </div>
+          <p className="text-muted-foreground/70">
+            © {new Date().getFullYear()}{" "}Himanshu Pandey. Built with passion using Next.js &amp; Framer Motion.
           </p>
-          <p>© {new Date().getFullYear()} Himanshu Pandey. Built with passion using Next.js &amp; Framer Motion.</p>
         </div>
       </footer>
 
