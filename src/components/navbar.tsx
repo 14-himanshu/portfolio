@@ -2,8 +2,8 @@
 
 import React, { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
-import { Home, User, Briefcase, Code, Mail, Moon, Sun, FileText } from "lucide-react"
-import { resume } from "@/lib/site"
+import { Home, Briefcase, Code, Layers, Mail, Moon, Sun } from "lucide-react"
+
 import { FaGithub, FaLinkedin } from "react-icons/fa"
 import { useTheme } from "next-themes"
 import { cn } from "@/lib/utils"
@@ -14,7 +14,7 @@ const navItems = [
   { name: "Home", href: "#home", icon: Home },
   { name: "Experience", href: "#experience", icon: Briefcase },
   { name: "Projects", href: "#projects", icon: Code },
-  { name: "Skills", href: "#skills", icon: User },
+  { name: "Skills", href: "#skills", icon: Layers },
   { name: "Contact", href: "#contact", icon: Mail },
 ]
 
@@ -119,14 +119,6 @@ export function Navbar() {
           >
             <FaLinkedin className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
           </Link>
-          <Link
-            href={resume.viewPath}
-            className="p-2.5 hover:bg-primary/5 rounded-full transition-all group"
-            title="View resume"
-          >
-            <FileText className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
-          </Link>
-
           <button
             onClick={() => setTheme(currentTheme === "dark" ? "light" : "dark")}
             className="p-2.5 hover:bg-primary/5 rounded-full transition-all group"

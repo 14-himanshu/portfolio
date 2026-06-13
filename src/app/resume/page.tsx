@@ -5,9 +5,26 @@ import { resume } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "Resume | Himanshu Pandey",
+  title: "Himanshu Pandey — Resume & CV | Software Engineer",
   description:
-    "View and download Himanshu Pandey's resume — Software Engineer portfolio.",
+    "Download or view the resume of Himanshu Pandey — Software Engineer specialising in React, Next.js, Node.js, and AI integrations. Available for freelance projects and full-time roles.",
+  keywords: [
+    "Himanshu Pandey resume",
+    "Himanshu Pandey CV",
+    "Himanshu Pandey software engineer",
+    "Himanshu Pandey developer",
+    "full-stack developer resume India",
+    "Next.js developer resume",
+    "React developer resume",
+  ],
+  alternates: { canonical: "/resume" },
+  openGraph: {
+    title: "Himanshu Pandey — Resume & CV",
+    description:
+      "Download or view the resume of Himanshu Pandey — Full-stack Software Engineer.",
+    url: "https://himanshupandey.me/resume",
+    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
+  },
 };
 
 const actionClass = cn(

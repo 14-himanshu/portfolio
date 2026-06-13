@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion"
 import { skills } from "@/lib/data"
-import { Code2, Cpu, Globe, Layout, ShieldCheck, Zap } from "lucide-react"
+import { Cpu, Layout, ShieldCheck, Zap } from "lucide-react"
 
 const skillCategories = [
   { name: "Frontend", icon: Layout, skills: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"] },
