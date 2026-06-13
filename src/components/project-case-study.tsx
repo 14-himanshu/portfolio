@@ -1,9 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { ExternalLink } from "lucide-react";
+import { ArrowLeft, ExternalLink } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
 import { cn } from "@/lib/utils";
 import type { Project } from "@/lib/data";
@@ -12,6 +13,7 @@ import { architectures } from "@/lib/architecture";
 import { ArchitectureDiagram } from "@/components/architecture-diagram";
 
 export function ProjectCaseStudy({ project }: { project: Project }) {
+  const router = useRouter();
   const [showArch, setShowArch] = useState(false);
   const arch = architectures[project.slug];
 
@@ -19,12 +21,15 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
     <main className="min-h-screen pb-24">
       <section className="relative overflow-hidden pt-8 pb-14">
         <div className="container px-4 mx-auto">
-          <Link
-            href="/#projects"
+          <button
+            onClick={() =>
+              window.history.length > 1 ? router.back() : router.push("/")
+            }
             className="inline-flex items-center gap-2 text-sm font-bold text-muted-foreground hover:text-foreground transition-colors"
           >
-            ← Back to projects
-          </Link>
+            <ArrowLeft className="w-4 h-4" />
+            Back to projects
+          </button>
 
           <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-10 items-center mt-8">
             <div className="space-y-8">

@@ -93,6 +93,7 @@ export function Contact() {
                       title="Copy email"
                       className="p-1.5 rounded-lg text-muted-foreground hover:text-primary hover:bg-primary/5 transition-all"
                     >
+                      {emailCopied
                         ? <Check className="w-4 h-4 text-primary" />
                         : <Copy className="w-4 h-4" />}
                     </button>

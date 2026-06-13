@@ -4,6 +4,7 @@ import { ArrowLeft, Download, ExternalLink, FileText } from "lucide-react";
 import { resume } from "@/lib/site";
 import { cn } from "@/lib/utils";
 import { Navbar } from "@/components/navbar";
+import { BackButton } from "@/components/back-button";
 
 export const metadata: Metadata = {
   title: "Himanshu Pandey — Resume & CV | Software Engineer",
@@ -40,13 +41,7 @@ export default function ResumePage() {
       <Navbar />
       <header className="sticky top-0 z-50 border-b border-border/40 bg-background/80 backdrop-blur-xl">
         <div className="container mx-auto flex flex-wrap items-center justify-between gap-4 px-4 py-4">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 text-sm font-bold text-muted-foreground transition-colors hover:text-foreground"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            Back to portfolio
-          </Link>
+          <BackButton label="Back to portfolio" fallbackHref="/" />
           <div className="flex flex-wrap items-center gap-3">
             <a
               href={resume.href}
