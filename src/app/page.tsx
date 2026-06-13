@@ -48,7 +48,7 @@ export default function Home() {
       <Contact />
 
       <footer className="py-12 border-t border-border/50 text-center text-muted-foreground text-sm">
-        <div className="container px-4 flex flex-col items-center justify-center gap-5">
+        <div className="container px-4 flex flex-col items-center justify-center gap-4">
           <div className="flex items-center justify-center gap-3 text-sm font-bold text-foreground/80">
             <a
               href={resume.viewPath}
@@ -65,9 +65,27 @@ export default function Home() {
               Download PDF
             </a>
           </div>
-          <p className="text-muted-foreground/70">
-            © {new Date().getFullYear()}{" "}Himanshu Pandey. Built with passion using Next.js &amp; Framer Motion.
-          </p>
+          <div className="flex items-center gap-5 text-muted-foreground/50">
+            <a
+              href="https://github.com/14-himanshu"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs font-mono hover:text-primary transition-colors"
+            >
+              GitHub
+            </a>
+            <span className="text-border/30 text-[10px]">&#9679;</span>
+            <a
+              href="https://www.linkedin.com/in/himanshupandey14/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs font-mono hover:text-primary transition-colors"
+            >
+              LinkedIn
+            </a>
+            <span className="text-border/30 text-[10px]">&#9679;</span>
+            <span className="text-xs font-mono">Himanshu Pandey &copy; {new Date().getFullYear()}</span>
+          </div>
         </div>
       </footer>
 

@@ -57,7 +57,7 @@ export const metadata: Metadata = {
     description:
       "Full-stack engineer building scalable web apps, real-time systems, and AI-powered products.",
     images: ["/og-image.png"],
-    creator: "@himanshupandey",
+    creator: "@hpandey_14",
   },
   robots: {
     index: true,
@@ -112,7 +112,7 @@ export default function RootLayout({
           </div>
           <Toaster
             position="top-center"
-            theme="dark"
+            theme="system"
             richColors
             closeButton
           />

@@ -50,8 +50,8 @@ export function Hero() {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="text-6xl md:text-8xl lg:text-[10rem] font-bold font-outfit tracking-tighter leading-[0.9] mb-10"
         >
-          Building <span className="text-gradient">scalable</span> <br />
-          applications.
+          Engineering <span className="text-gradient">complete</span> <br />
+          systems.
         </motion.h1>
 
         {/* Subtext */}
@@ -62,8 +62,8 @@ export function Hero() {
           className="max-w-2xl mx-auto text-muted-foreground text-lg md:text-xl mb-12 leading-relaxed font-medium"
         >
           Hi, I&apos;m <span className="text-foreground font-bold">Himanshu Pandey</span>. 
-          A Software Engineer focused on crafting high-performance, 
-          visually stunning web applications.
+          I build AI-integrated backends, real-time communication layers, and 
+          production SaaS products — end to end.
         </motion.p>
 
         {/* CTAs (z-20 for click priority) */}
@@ -92,15 +92,6 @@ export function Hero() {
           >
             <FileText className="w-5 h-5" />
             VIEW RESUME
-          </Link>
-          <Link
-            href="#contact"
-            className={cn(
-              "px-10 py-5 bg-secondary/60 text-secondary-foreground rounded-2xl font-black border border-border/50 transition-all duration-300",
-              "hover:bg-secondary/80 active:scale-[0.98]"
-            )}
-          >
-            GET IN TOUCH
           </Link>
         </motion.div>
       </div>

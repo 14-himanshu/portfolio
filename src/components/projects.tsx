@@ -1,12 +1,191 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, ExternalLink } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
 import { projects } from "@/lib/data";
+import { architectures } from "@/lib/architecture";
+import { ArchitectureDiagram } from "@/components/architecture-diagram";
 import Link from "next/link";
 import Image from "next/image";
+import type { Project } from "@/lib/data";
 
+// ─── Individual card with its own hover state ───────────────────────────────
+function ProjectCard({ project, index }: { project: Project; index: number }) {
+  const [hovered, setHovered] = useState(false);
+  const arch = architectures[project.slug];
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: index * 0.06 }}
+      className="group relative bg-transparent"
+      onHoverStart={() => setHovered(true)}
+      onHoverEnd={() => setHovered(false)}
+    >
+      <div className="grid grid-cols-1 md:grid-cols-[1fr_0.95fr] items-stretch gap-6 rounded-3xl border border-border/30 overflow-hidden transition-shadow duration-300 hover:shadow-2xl">
+
+        {/* ── Left: text content ────────────────────────────────────────── */}
+        <div className="p-6 md:p-8 flex flex-col justify-between bg-background/5">
+          <div>
+            <div className="flex items-center justify-between gap-4">
+              <div>
+                <h3 className="text-3xl md:text-4xl font-bold font-outfit tracking-tight text-foreground">
+                  {project.title}
+                </h3>
+                <p className="text-sm text-muted-foreground mt-1">
+                  {project.description}
+                </p>
+              </div>
+              <div className="hidden md:flex items-center gap-3">
+                <Link
+                  href={project.github}
+                  target="_blank"
+                  className="p-2 rounded-lg bg-foreground/6 hover:bg-foreground/10 transition"
+                >
+                  <FaGithub className="w-5 h-5 text-muted-foreground" />
+                </Link>
+                <Link
+                  href={project.link}
+                  target="_blank"
+                  className="p-2 rounded-lg bg-foreground/6 hover:bg-foreground/10 transition"
+                >
+                  <ExternalLink className="w-5 h-5 text-muted-foreground" />
+                </Link>
+              </div>
+            </div>
+
+            <div className="mt-5 flex flex-wrap gap-2">
+              {project.tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="px-3 py-1 rounded-full bg-primary/5 text-primary/70 text-xs font-semibold"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+
+            {"highlights" in project && Array.isArray(project.highlights) && (
+              <ul className="mt-6 space-y-2 text-muted-foreground">
+                {project.highlights.map((h) => (
+                  <li key={h} className="flex items-start gap-3">
+                    <span className="mt-1 h-2 w-2 rounded-full bg-primary shrink-0" />
+                    <span className="text-sm">{h}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+
+          <div className="mt-6 flex items-center gap-3">
+            <Link
+              href={`/projects/${project.slug}`}
+              className="inline-flex items-center gap-2 text-sm font-bold text-primary hover:gap-3 transition-all"
+            >
+              Read case study
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+        </div>
+
+        {/* ── Right: screenshot ↔ architecture diagram ──────────────────── */}
+        <div className="p-6 md:p-8 flex items-center justify-center bg-linear-to-br from-background/0 via-background/5 to-background/0">
+          <div className="w-full relative transition-transform duration-500 group-hover:scale-[1.02]">
+            <div className="w-full rounded-2xl border border-border/40 shadow-lg overflow-hidden bg-black/5">
+
+              {/* Fake browser chrome bar */}
+              <div className="flex items-center gap-2 px-3 py-2 bg-background/90 border-b border-border/30">
+                <span className="w-2.5 h-2.5 rounded-full bg-red-500/80" />
+                <span className="w-2.5 h-2.5 rounded-full bg-yellow-400/80" />
+                <span className="w-2.5 h-2.5 rounded-full bg-green-400/80" />
+
+                {/* URL bar — shows "system architecture" hint on hover */}
+                <div className="flex-1 mx-2 px-2 py-0.5 rounded bg-foreground/5 border border-border/20 overflow-hidden">
+                  <AnimatePresence mode="wait">
+                    {hovered && arch ? (
+                      <motion.span
+                        key="arch-label"
+                        className="block text-[8px] font-mono text-primary/70 uppercase tracking-widest"
+                        initial={{ opacity: 0, y: 4 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -4 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        ⬡ system architecture
+                      </motion.span>
+                    ) : (
+                      <motion.span
+                        key="url-label"
+                        className="block text-[8px] font-mono text-muted-foreground/40 truncate"
+                        initial={{ opacity: 0, y: -4 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 4 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        {project.link.replace("https://", "")}
+                      </motion.span>
+                    )}
+                  </AnimatePresence>
+                </div>
+              </div>
+
+              {/* Image / diagram swap area */}
+              <div className="relative w-full aspect-2/1 overflow-hidden bg-background/80">
+
+                {/* Screenshot — fades out when hovered + arch available */}
+                <motion.div
+                  className="absolute inset-0"
+                  animate={{ opacity: hovered && arch ? 0 : 1 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <Image
+                    src={project.image}
+                    alt={`${project.title} preview`}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 45vw"
+                    className="object-contain object-center transition-transform duration-700 will-change-transform group-hover:scale-[1.02]"
+                  />
+                </motion.div>
+
+                {/* Architecture diagram — mounts fresh on every hover to replay animation */}
+                <AnimatePresence>
+                  {hovered && arch && (
+                    <motion.div
+                      key={`arch-${project.slug}`}
+                      className="absolute inset-0 p-4"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <ArchitectureDiagram data={arch} />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
+                {/* "hover to reveal" hint shown only when NOT hovered */}
+                {arch && !hovered && (
+                  <div className="absolute bottom-2 right-3 pointer-events-none">
+                    <span className="text-[7px] font-mono uppercase tracking-widest text-primary/20">
+                      hover · reveal architecture
+                    </span>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </motion.div>
+  );
+}
+
+// ─── Section ─────────────────────────────────────────────────────────────────
 export function Projects() {
   return (
     <section id="projects" className="py-32 relative">
@@ -34,105 +213,9 @@ export function Projects() {
         </div>
 
         <div className="grid grid-cols-1 gap-8">
-          {projects.map((project, index) => {
-            return (
-              <motion.div
-                key={project.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.06 }}
-                className="group relative bg-transparent"
-              >
-                <div className="grid grid-cols-1 md:grid-cols-[1fr_0.95fr] items-stretch gap-6 rounded-3xl border border-border/30 overflow-hidden transition-shadow duration-300 hover:shadow-2xl">
-                  <div className="p-6 md:p-8 flex flex-col justify-between bg-background/5">
-                    <div>
-                      <div className="flex items-center justify-between gap-4">
-                        <div>
-                          <h3 className="text-3xl md:text-4xl font-bold font-outfit tracking-tight text-foreground">
-                            {project.title}
-                          </h3>
-                          <p className="text-sm text-muted-foreground mt-1">
-                            {project.description}
-                          </p>
-                        </div>
-                        <div className="hidden md:flex items-center gap-3">
-                          <Link
-                            href={project.github}
-                            target="_blank"
-                            className="p-2 rounded-lg bg-foreground/6 hover:bg-foreground/10 transition"
-                          >
-                            <FaGithub className="w-5 h-5 text-muted-foreground" />
-                          </Link>
-                          <Link
-                            href={project.link}
-                            target="_blank"
-                            className="p-2 rounded-lg bg-foreground/6 hover:bg-foreground/10 transition"
-                          >
-                            <ExternalLink className="w-5 h-5 text-muted-foreground" />
-                          </Link>
-                        </div>
-                      </div>
-
-                      <div className="mt-5 flex flex-wrap gap-2">
-                        {project.tags.map((tag) => (
-                          <span
-                            key={tag}
-                            className="px-3 py-1 rounded-full bg-primary/5 text-primary/70 text-xs font-semibold"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-
-                      {"highlights" in project &&
-                        Array.isArray(project.highlights) && (
-                          <ul className="mt-6 space-y-2 text-muted-foreground">
-                            {project.highlights.map((h) => (
-                              <li key={h} className="flex items-start gap-3">
-                                <span className="mt-1 h-2 w-2 rounded-full bg-primary shrink-0" />
-                                <span className="text-sm">{h}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        )}
-                    </div>
-
-                    <div className="mt-6 flex items-center gap-3">
-                      <Link
-                        href={`/projects/${project.slug}`}
-                        className="inline-flex items-center gap-2 text-sm font-bold text-primary hover:gap-3 transition-all"
-                      >
-                        Read case study
-                        <ArrowRight className="w-4 h-4" />
-                      </Link>
-                    </div>
-                  </div>
-
-                  <div className="p-6 md:p-8 flex items-center justify-center bg-linear-to-br from-background/0 via-background/5 to-background/0">
-                    <div className="w-full relative transition-transform duration-500 group-hover:scale-[1.02]">
-                      <div className="w-full rounded-2xl border border-border/40 shadow-lg overflow-hidden bg-black/5">
-                        <div className="flex items-center gap-3 px-3 py-2 bg-background/90 border-b border-border/30">
-                          <span className="w-3 h-3 rounded-full bg-red-500" />
-                          <span className="w-3 h-3 rounded-full bg-yellow-400" />
-                          <span className="w-3 h-3 rounded-full bg-green-400" />
-                        </div>
-                        <div className="relative w-full aspect-2/1 overflow-hidden bg-background/80">
-                          <Image
-                            src={project.image}
-                            alt={`${project.title} preview`}
-                            fill
-                            sizes="(max-width: 768px) 100vw, 45vw"
-                            className="object-contain object-center transition-transform duration-700 will-change-transform group-hover:scale-[1.02]"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            );
-          })}
+          {projects.map((project, index) => (
+            <ProjectCard key={project.slug} project={project} index={index} />
+          ))}
         </div>
       </div>
     </section>

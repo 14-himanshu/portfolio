@@ -18,7 +18,7 @@ export async function POST(request: Request) {
 
     // Attempt to send email
     const data = await resend.emails.send({
-      from: 'Portfolio Contact <onboarding@resend.dev>', // Resend's default test sender
+      from: 'Portfolio Contact <noreply@himanshupandey.me>', // Verified custom domain sender
       to: process.env.CONTACT_EMAIL as string, // Read from environment variables
       subject: `New Project Inquiry from ${name}`,
       replyTo: email,
