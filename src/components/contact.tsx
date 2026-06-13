@@ -154,27 +154,26 @@ export function Contact() {
                     required
                     name="name"
                     type="text" 
-                    placeholder="E.g. Elon Musk"
+                    placeholder="Your full name"
                     className="w-full px-5 py-4 rounded-2xl bg-background/50 border border-border/60 focus:border-primary/50 focus:ring-4 focus:ring-primary/10 outline-none transition-all placeholder:text-muted-foreground/30 font-medium"
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-bold tracking-wide ml-1">Work Email</label>
+                  <label className="text-sm font-bold tracking-wide ml-1">Email</label>
                   <input 
                     required
                     name="email"
                     type="email" 
-                    placeholder="E.g. elon@spacex.com"
+                    placeholder="your@email.com"
                     className="w-full px-5 py-4 rounded-2xl bg-background/50 border border-border/60 focus:border-primary/50 focus:ring-4 focus:ring-primary/10 outline-none transition-all placeholder:text-muted-foreground/30 font-medium"
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-bold tracking-wide ml-1">Project Details</label>
+                  <label className="text-sm font-bold tracking-wide ml-1">Message <span className="text-muted-foreground font-normal">(optional)</span></label>
                   <textarea 
-                    required
                     name="details"
                     rows={4}
-                    placeholder="Briefly describe what you're working on..."
+                    placeholder="What's on your mind? A project, a question, or just saying hi."
                     className="w-full px-5 py-4 rounded-2xl bg-background/50 border border-border/60 focus:border-primary/50 focus:ring-4 focus:ring-primary/10 outline-none transition-all placeholder:text-muted-foreground/30 font-medium resize-none"
                   />
                 </div>

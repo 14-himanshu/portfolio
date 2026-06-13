@@ -4,10 +4,11 @@ import { motion } from "framer-motion";
 import { ArrowLeft, Home } from "lucide-react";
 import Link from "next/link";
 
+
 export default function NotFound() {
   return (
     <main className="min-h-screen flex flex-col items-center justify-center px-4 relative overflow-hidden">
-      {/* Background glow — same as hero */}
+      {/* Background glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[120px] pointer-events-none z-0" />
 
       <div className="relative z-10 text-center space-y-8 max-w-xl mx-auto">
@@ -50,13 +51,13 @@ export default function NotFound() {
             <Home className="w-4 h-4" />
             Go Home
           </Link>
-          <button
-            onClick={() => window.history.back()}
+          <Link
+            href="/#projects"
             className="inline-flex items-center gap-2 px-8 py-4 bg-secondary text-secondary-foreground rounded-2xl font-black border border-border/50 transition-all duration-300 hover:bg-secondary/80 active:scale-[0.98]"
           >
             <ArrowLeft className="w-4 h-4" />
-            Go Back
-          </button>
+            View Projects
+          </Link>
         </motion.div>
       </div>
     </main>
