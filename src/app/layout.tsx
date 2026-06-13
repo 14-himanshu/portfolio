@@ -92,7 +92,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} ${outfit.variable} font-sans transition-colors duration-500`}>
+      <body suppressHydrationWarning className={`${inter.variable} ${outfit.variable} font-sans transition-colors duration-500`}>
         <Script
           id="json-ld-person"
           type="application/ld+json"
