@@ -81,9 +81,17 @@
   * {
     @apply border-border selection:bg-primary/10 selection:text-primary transition-colors duration-300;
   }
+  html {
+    /* Smooth scrolling for all hash-link navigation */
+    scroll-behavior: smooth;
+  }
   body {
     @apply bg-background text-foreground antialiased overflow-x-hidden;
     font-feature-settings: "ss01", "ss02", "cv01", "cv02";
+  }
+  /* Give all section anchor targets breathing room below the fixed navbar */
+  section[id] {
+    scroll-margin-top: 6rem;
   }
 }
 

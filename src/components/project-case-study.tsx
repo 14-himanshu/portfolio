@@ -1,21 +1,26 @@
+"use client";
+
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { ExternalLink } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
 import { cn } from "@/lib/utils";
 import type { Project } from "@/lib/data";
 import Image from "next/image";
+import { architectures } from "@/lib/architecture";
+import { ArchitectureDiagram } from "@/components/architecture-diagram";
+import { BackButton } from "@/components/back-button";
 
 export function ProjectCaseStudy({ project }: { project: Project }) {
+  const [showArch, setShowArch] = useState(false);
+  const arch = architectures[project.slug];
+
   return (
     <main className="min-h-screen pb-24">
       <section className="relative overflow-hidden pt-8 pb-14">
         <div className="container px-4 mx-auto">
-          <Link
-            href="/#projects"
-            className="inline-flex items-center gap-2 text-sm font-bold text-muted-foreground hover:text-foreground transition-colors"
-          >
-            ← Back to projects
-          </Link>
+          <BackButton label="Back to projects" href="/#projects" />
 
           <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-10 items-center mt-8">
             <div className="space-y-8">
@@ -77,23 +82,80 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
               </div>
             </div>
 
+            {/* ── Right: screenshot + architecture diagram toggle ─────────── */}
             <div className="relative">
               <div className="absolute inset-0 rounded-[2.5rem] bg-primary/10 blur-3xl opacity-60" />
-              <div className="relative aspect-2/1 overflow-hidden rounded-[2.5rem] border border-border/40 shadow-2xl bg-background/80">
-                <Image
-                  src={project.image}
-                  alt={`${project.title} preview`}
-                  fill
-                  priority
-                  sizes="(max-width: 1024px) 100vw, 45vw"
-                  className="object-contain object-center"
-                />
+
+              <div className="relative rounded-[2.5rem] border border-border/40 shadow-2xl bg-background/80 overflow-hidden">
+
+                {/* Toggle bar — only shown when a diagram exists */}
+                {arch && (
+                  <div className="flex items-center gap-1 px-4 py-2 bg-background/90 border-b border-border/30">
+                    <button
+                      onClick={() => setShowArch(false)}
+                      className={cn(
+                        "flex-1 py-1.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all",
+                        !showArch
+                          ? "bg-primary/10 text-primary"
+                          : "text-muted-foreground hover:text-foreground"
+                      )}
+                    >
+                      Preview
+                    </button>
+                    <button
+                      onClick={() => setShowArch(true)}
+                      className={cn(
+                        "flex-1 py-1.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all",
+                        showArch
+                          ? "bg-primary/10 text-primary"
+                          : "text-muted-foreground hover:text-foreground"
+                      )}
+                    >
+                      ⬡ Architecture
+                    </button>
+                  </div>
+                )}
+
+                <div className="relative aspect-2/1 overflow-hidden">
+                  {/* Screenshot */}
+                  <motion.div
+                    className="absolute inset-0"
+                    animate={{ opacity: showArch ? 0 : 1 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <Image
+                      src={project.image}
+                      alt={`${project.title} preview`}
+                      fill
+                      priority
+                      sizes="(max-width: 1024px) 100vw, 45vw"
+                      className="object-contain object-center"
+                    />
+                  </motion.div>
+
+                  {/* Architecture diagram — mounts fresh each time tab is activated */}
+                  <AnimatePresence>
+                    {showArch && arch && (
+                      <motion.div
+                        key={`arch-cs-${project.slug}`}
+                        className="absolute inset-0 p-4"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        <ArchitectureDiagram data={arch} />
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
+      {/* ── Case study body ─────────────────────────────────────────────── */}
       <section className="container px-4 mx-auto space-y-8">
         {project.caseStudy.sections.map((section) => (
           <article

@@ -24,7 +24,7 @@ export function LiveVisitors() {
     const channel = pusher.subscribe("presence-portfolio");
 
     // When we successfully subscribe, we get the initial list of all members
-    channel.bind("pusher:subscription_succeeded", (members: any) => {
+    channel.bind("pusher:subscription_succeeded", (members: { count: number }) => {
       setVisitorCount(members.count);
     });
 

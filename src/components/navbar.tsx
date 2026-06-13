@@ -26,6 +26,7 @@ export function Navbar() {
   const [hoveredItem, setHoveredItem] = useState<string | null>(null)
 
   useEffect(() => {
+    // eslint-disable-next-line
     setMounted(true)
     const handleScroll = () => {
       setScrolled(window.scrollY > 20)
@@ -43,17 +44,16 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
-  if (!mounted) return null
 
   const currentTheme = theme === 'system' ? resolvedTheme : theme
 
   return (
-    <nav className="fixed top-8 left-0 right-0 z-[100] flex justify-center px-6">
+    <nav className="fixed top-8 left-0 right-0 z-[100] flex justify-center px-6 pointer-events-none">
       <motion.div
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         className={cn(
-          "flex items-center gap-1.5 px-3 py-2 rounded-[2.5rem] border transition-all duration-500 glass",
+          "flex items-center gap-1.5 px-3 py-2 rounded-[2.5rem] border transition-all duration-500 glass pointer-events-auto",
           scrolled ? "scale-95 translate-y-[-5px]" : "scale-100"
         )}
       >
@@ -108,6 +108,7 @@ export function Navbar() {
           <Link
             href="https://github.com/14-himanshu"
             target="_blank"
+            aria-label="GitHub profile"
             className="p-2.5 hover:bg-primary/5 rounded-full transition-all group"
           >
             <FaGithub className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
@@ -115,15 +116,19 @@ export function Navbar() {
           <Link
             href="https://www.linkedin.com/in/himanshupandey14/"
             target="_blank"
+            aria-label="LinkedIn profile"
             className="p-2.5 hover:bg-primary/5 rounded-full transition-all group"
           >
             <FaLinkedin className="w-5 h-5 text-muted-foreground group-hover:text-foreground" />
           </Link>
           <button
             onClick={() => setTheme(currentTheme === "dark" ? "light" : "dark")}
+            aria-label="Toggle dark mode"
             className="p-2.5 hover:bg-primary/5 rounded-full transition-all group"
           >
-            {currentTheme === "dark" ? (
+            {!mounted ? (
+              <span className="w-5 h-5 block" />
+            ) : currentTheme === "dark" ? (
               <Sun className="w-5 h-5 text-yellow-500 group-hover:rotate-90 transition-transform duration-500" />
             ) : (
               <Moon className="w-5 h-5 text-indigo-600 group-hover:-rotate-12 transition-transform duration-500" />
@@ -131,8 +136,8 @@ export function Navbar() {
           </button>
         </div>
 
-        <div className="hidden sm:block w-[1px] h-6 bg-border/50 mx-1" />
-        <div className="hidden sm:block">
+        <div className="w-[1px] h-6 bg-border/50 mx-1" />
+        <div>
           <LiveVisitors />
         </div>
       </motion.div>
