@@ -47,12 +47,12 @@ export function Navbar() {
   const currentTheme = theme === 'system' ? resolvedTheme : theme
 
   return (
-    <nav className="fixed top-8 left-0 right-0 z-[100] flex justify-center px-6">
+    <nav className="fixed top-8 left-0 right-0 z-[100] flex justify-center px-6 pointer-events-none">
       <motion.div
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         className={cn(
-          "flex items-center gap-1.5 px-3 py-2 rounded-[2.5rem] border transition-all duration-500 glass",
+          "flex items-center gap-1.5 px-3 py-2 rounded-[2.5rem] border transition-all duration-500 glass pointer-events-auto",
           scrolled ? "scale-95 translate-y-[-5px]" : "scale-100"
         )}
       >
