@@ -153,10 +153,10 @@ export function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="text-6xl md:text-8xl lg:text-[10rem] font-bold font-outfit tracking-tighter leading-[0.9] mb-8"
+          className="text-6xl md:text-8xl lg:text-[9rem] font-bold font-outfit tracking-tighter leading-[0.9] mb-8"
         >
-          Engineering <span className="text-gradient">complete</span> <br />
-          systems.
+          Built for production. <br />
+          <span className="text-gradient">Not portfolios.</span>
         </motion.h1>
 
         {/* Static identity line */}
