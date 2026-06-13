@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion"
 import { Mail, MessageSquare, Send, CheckCircle2, Copy, Check } from "lucide-react"
+import { FaGithub, FaLinkedin } from "react-icons/fa"
 import { useState } from "react"
 import { toast } from "sonner"
 import { cn } from "@/lib/utils"
@@ -105,11 +106,17 @@ export function Contact() {
                 </div>
                 <div>
                   <p className="text-xs uppercase tracking-widest font-black text-muted-foreground/60 mb-1">Social Channels</p>
-                  <p className="text-xl font-bold">
-                    <a href="https://www.linkedin.com/in/himanshupandey14/" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">LinkedIn</a>
-                    {" / "}
-                    <a href="https://github.com/14-himanshu" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">GitHub</a>
-                  </p>
+                  <div className="flex items-center gap-4">
+                    <a href="https://www.linkedin.com/in/himanshupandey14/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-lg font-bold hover:text-primary transition-colors">
+                      <FaLinkedin className="w-5 h-5" />
+                      LinkedIn
+                    </a>
+                    <span className="text-border">/</span>
+                    <a href="https://github.com/14-himanshu" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-lg font-bold hover:text-primary transition-colors">
+                      <FaGithub className="w-5 h-5" />
+                      GitHub
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
