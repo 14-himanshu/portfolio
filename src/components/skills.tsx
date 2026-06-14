@@ -35,8 +35,6 @@ const skillCategories = [
 const unusualTech = [
   "BullMQ", "LangGraph", "Vector Search", "RAG", "oEmbed Fallback",
   "Razorpay", "ws (raw WebSocket)", "Groq", "Puppeteer", "MongoDB Atlas",
-  "BullMQ", "LangGraph", "Vector Search", "RAG", "oEmbed Fallback",
-  "Razorpay", "ws (raw WebSocket)", "Groq", "Puppeteer", "MongoDB Atlas",
 ]
 
 export function Skills() {
@@ -105,7 +103,7 @@ export function Skills() {
             The non-obvious choices ↓
           </p>
           <div className="flex gap-16 animate-marquee whitespace-nowrap">
-            {unusualTech.map((tech, i) => (
+            {[...unusualTech, ...unusualTech].map((tech, i) => (
               <span
                 key={i}
                 className="text-3xl md:text-5xl font-black uppercase tracking-tighter text-muted-foreground/8 hover:text-primary/15 transition-colors cursor-default"

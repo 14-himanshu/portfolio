@@ -69,7 +69,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
               ))}
             </div>
 
-            {"highlights" in project && Array.isArray(project.highlights) && (
+            {project.highlights.length > 0 && (
               <ul className="mt-6 space-y-2 text-muted-foreground">
                 {project.highlights.map((h) => (
                   <li key={h} className="flex items-start gap-3">

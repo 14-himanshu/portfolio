@@ -12,9 +12,13 @@ const pusher = new Pusher({
 export async function POST(request: Request) {
   try {
     const data = await request.text();
-    const [socketId, channelName] = data
-      .split("&")
-      .map((str) => str.split("=")[1]);
+    const params = new URLSearchParams(data);
+    const socketId = params.get("socket_id");
+    const channelName = params.get("channel_name");
+
+    if (!socketId || !channelName) {
+      return NextResponse.json({ error: "Missing parameters" }, { status: 400 });
+    }
 
     // We assign a random user_id to every anonymous visitor
     const randomUserId = Math.random().toString(36).substring(2, 15);
