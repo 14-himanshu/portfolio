@@ -35,7 +35,7 @@ export function LiveVisitors() {
 
     // When someone leaves the portfolio
     channel.bind("pusher:member_removed", () => {
-      setVisitorCount((prev) => Math.max(1, prev - 1));
+      setVisitorCount((prev) => prev - 1);
     });
 
     // Cleanup on unmount

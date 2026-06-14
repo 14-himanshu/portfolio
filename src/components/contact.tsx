@@ -3,7 +3,7 @@
 import { motion } from "framer-motion"
 import { Mail, MessageSquare, Send, CheckCircle2, Copy, Check } from "lucide-react"
 import { FaGithub, FaLinkedin } from "react-icons/fa"
-import { useState } from "react"
+import React, { useState } from "react"
 import { toast } from "sonner"
 import { cn } from "@/lib/utils"
 
@@ -11,6 +11,7 @@ export function Contact() {
   const [loading, setLoading] = useState(false)
   const [submitted, setSubmitted] = useState(false)
   const [emailCopied, setEmailCopied] = useState(false)
+  const timeoutRef = React.useRef<NodeJS.Timeout | null>(null)
 
   const EMAIL = "himanshupandey.sde@gmail.com"
 
@@ -18,8 +19,13 @@ export function Contact() {
     try {
       await navigator.clipboard.writeText(EMAIL)
       setEmailCopied(true)
-      toast("Email copied to clipboard", { icon: "📋" })
-      setTimeout(() => setEmailCopied(false), 2000)
+      if (timeoutRef.current) clearTimeout(timeoutRef.current)
+      
+      toast("Email address copied", {
+        icon: <CheckCircle2 className="w-4 h-4 text-primary" />,
+        className: "bg-background/80 backdrop-blur-md border border-border/40 text-foreground font-medium rounded-xl shadow-2xl",
+      })
+      timeoutRef.current = setTimeout(() => setEmailCopied(false), 2000)
     } catch {
       toast.error("Could not copy email.")
     }
@@ -43,11 +49,13 @@ export function Contact() {
         body: JSON.stringify(data),
       })
 
+      const result = await response.json()
+
       if (response.ok) {
         setSubmitted(true)
         toast.success("Message sent! I'll be in touch shortly.")
       } else {
-        toast.error("Failed to send message. Please try again.")
+        toast.error(result.error || "Failed to send message. Please try again.")
       }
     } catch (error) {
       console.error("Contact form submission error:", error)

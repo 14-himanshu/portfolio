@@ -28,16 +28,23 @@ export function Navbar() {
   useEffect(() => {
     // eslint-disable-next-line
     setMounted(true)
+    let ticking = false
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20)
-      
-      const sections = navItems.map(item => item.href.substring(1))
-      for (const section of sections.reverse()) {
-        const element = document.getElementById(section)
-        if (element && window.scrollY >= element.offsetTop - 150) {
-          setActiveItem(navItems.find(i => i.href === `#${section}`)?.name || "Home")
-          break
-        }
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setScrolled(window.scrollY > 20)
+          
+          const sections = navItems.map(item => item.href.substring(1))
+          for (const section of sections.reverse()) {
+            const element = document.getElementById(section)
+            if (element && window.scrollY >= element.offsetTop - 150) {
+              setActiveItem(navItems.find(i => i.href === `#${section}`)?.name || "Home")
+              break
+            }
+          }
+          ticking = false
+        })
+        ticking = true
       }
     }
     window.addEventListener("scroll", handleScroll)
