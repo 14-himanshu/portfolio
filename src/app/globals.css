@@ -167,3 +167,427 @@
     radial-gradient(at 100% 100%, oklch(from var(--primary) l c h / 0.1) 0px, transparent 50%),
     radial-gradient(at 0% 100%, oklch(from var(--secondary) l c h / 0.15) 0px, transparent 50%);
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   RESUME PAGE — Toolbar, tabs, PDF viewer, HTML document
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Sticky Toolbar ── */
+.resume-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  border-bottom: 1px solid oklch(from var(--border) l c h / 0.4);
+  background: oklch(from var(--background) l c h / 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.resume-toolbar-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 1.5rem;
+}
+
+.resume-toolbar-left {
+  display: flex;
+  align-items: center;
+}
+
+.resume-toolbar-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+/* ── Tab bar ── */
+.resume-tab-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  background: oklch(from var(--muted) l c h / 0.6);
+  border: 1px solid oklch(from var(--border) l c h / 0.5);
+  border-radius: 99px;
+  padding: 0.25rem;
+}
+
+.resume-tab-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 1rem;
+  border-radius: 99px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--muted-foreground);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s;
+  white-space: nowrap;
+  z-index: 1;
+}
+
+.resume-tab-btn--active {
+  color: var(--foreground);
+}
+
+.resume-tab-btn:hover:not(.resume-tab-btn--active) {
+  color: var(--foreground);
+}
+
+/* Animated pill — rendered by Framer Motion layoutId */
+.resume-tab-active-pill {
+  position: absolute;
+  inset: 0;
+  border-radius: 99px;
+  background: var(--background);
+  border: 1px solid oklch(from var(--border) l c h / 0.6);
+  box-shadow: 0 2px 8px -2px rgba(0,0,0,0.12);
+  z-index: -1;
+}
+
+/* ── Action buttons ── */
+.resume-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 1rem;
+  border-radius: 99px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.resume-action-btn--ghost {
+  color: var(--foreground);
+  border: 1px solid oklch(from var(--border) l c h / 0.6);
+  background: transparent;
+}
+
+.resume-action-btn--ghost:hover {
+  background: oklch(from var(--muted) l c h / 0.7);
+  transform: translateY(-1px);
+}
+
+.resume-action-btn--primary {
+  color: var(--primary-foreground);
+  background: var(--primary);
+  border: 1px solid transparent;
+}
+
+.resume-action-btn--primary:hover {
+  opacity: 0.88;
+  transform: translateY(-1px) scale(1.02);
+}
+
+
+
+/* ═══════════════════════════════════════════════════════════════
+   RESUME HTML DOCUMENT — Clean, ATS-optimised, typographically polished
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Outer wrapper: centres the paper card with a subtle tinted background */
+.resume-page-wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 3rem 1rem 5rem;
+  background: oklch(0.95 0.01 240);
+  min-height: calc(100vh - 80px);
+}
+
+.dark .resume-page-wrapper {
+  background: oklch(0.09 0.015 240);
+}
+
+/* Paper card */
+.resume-document {
+  background: #ffffff;
+  color: #111111;
+  width: 100%;
+  max-width: 860px;
+  padding: 3rem 3.5rem;
+  border-radius: 0.5rem;
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.08),
+    0 20px 60px -15px rgba(0, 0, 0, 0.12);
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 0.875rem;
+  line-height: 1.55;
+}
+
+.dark .resume-document {
+  background: #ffffff;
+  color: #111111;
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.4),
+    0 20px 60px -15px rgba(0, 0, 0, 0.5);
+}
+
+/* ── Header ── */
+.resume-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.resume-name {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 2rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #0a0a0a;
+  margin: 0 0 0.2rem;
+  line-height: 1.1;
+}
+
+.resume-title {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: #333333;
+  margin: 0 0 0.6rem;
+  letter-spacing: 0.01em;
+}
+
+.resume-contact-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.1rem;
+  font-size: 0.8rem;
+  color: #444444;
+}
+
+.resume-contact-sep {
+  color: #aaaaaa;
+  padding: 0 0.35rem;
+  font-size: 0.75rem;
+}
+
+.resume-contact-link {
+  color: #1a1a1a;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+.resume-contact-link:hover {
+  color: #0066cc;
+  text-decoration: underline;
+}
+
+/* ── Section heading ── */
+.resume-section {
+  margin-bottom: 1.4rem;
+}
+
+.resume-section-heading {
+  margin-bottom: 0.55rem;
+}
+
+.resume-section-heading h2 {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #0a0a0a;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin: 0 0 0.2rem;
+  line-height: 1.2;
+}
+
+.resume-rule {
+  border: none;
+  border-top: 1.5px solid #1a1a1a;
+  margin: 0;
+}
+
+/* ── Body text ── */
+.resume-body {
+  color: #222222;
+  margin: 0;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  text-align: justify;
+}
+
+/* ── Skills grid ── */
+.resume-skills-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.resume-skill-row {
+  display: flex;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  align-items: baseline;
+}
+
+.resume-skill-label {
+  font-weight: 700;
+  color: #0a0a0a;
+  white-space: nowrap;
+  flex-shrink: 0;
+  min-width: 12rem;
+}
+
+.resume-skill-value {
+  color: #333333;
+}
+
+/* ── Project block ── */
+.resume-project {
+  margin-bottom: 1.1rem;
+}
+
+.resume-project-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.1rem;
+}
+
+.resume-project-title {
+  font-weight: 700;
+  color: #0a0a0a;
+  font-size: 0.9rem;
+}
+
+.resume-project-subtitle {
+  font-weight: 400;
+  color: #333333;
+  font-size: 0.85rem;
+}
+
+.resume-project-links {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  font-size: 0.78rem;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.resume-link-pill {
+  color: #1a1a1a;
+  text-decoration: none;
+  font-size: 0.78rem;
+}
+.resume-link-pill:hover {
+  color: #0066cc;
+  text-decoration: underline;
+}
+
+.resume-stack {
+  font-style: italic;
+  color: #555555;
+  font-size: 0.8rem;
+  margin: 0.05rem 0 0.35rem;
+}
+
+/* ── Bullet list ── */
+.resume-bullet-list {
+  margin: 0;
+  padding-left: 1.3rem;
+  color: #222222;
+  font-size: 0.84rem;
+  line-height: 1.55;
+}
+
+.resume-bullet-list li {
+  margin-bottom: 0.22rem;
+}
+
+.resume-bullet-list li:last-child {
+  margin-bottom: 0;
+}
+
+/* ── Education row ── */
+.resume-edu-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  margin-bottom: 0.65rem;
+  flex-wrap: wrap;
+}
+
+.resume-edu-institution {
+  font-weight: 700;
+  color: #0a0a0a;
+  font-size: 0.88rem;
+}
+
+.resume-edu-detail {
+  color: #555555;
+  font-style: italic;
+  font-size: 0.8rem;
+  margin: 0.1rem 0 0;
+}
+
+.resume-date {
+  color: #555555;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ── Responsive (HTML document) ── */
+@media (max-width: 640px) {
+  .resume-document {
+    padding: 2rem 1.5rem;
+  }
+
+  .resume-name {
+    font-size: 1.6rem;
+  }
+
+  .resume-skill-row {
+    flex-direction: column;
+    gap: 0.05rem;
+  }
+
+  .resume-skill-label {
+    min-width: unset;
+  }
+
+  .resume-project-header {
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+}
+
+/* ── Print styles ── */
+@media print {
+  .resume-toolbar,
+  .resume-tab-bar {
+    display: none;
+  }
+
+  .resume-page-wrapper {
+    background: white;
+    padding: 0;
+  }
+
+  .resume-document {
+    box-shadow: none;
+    border-radius: 0;
+    padding: 1.5rem 2rem;
+    max-width: 100%;
+  }
+}
+
+
+
