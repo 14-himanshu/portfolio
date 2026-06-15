@@ -1,140 +1,251 @@
-import type { Metadata } from "next";
-import { Download, ExternalLink, FileText } from "lucide-react";
-import { resume } from "@/lib/site";
-import { cn } from "@/lib/utils";
-import { Navbar } from "@/components/navbar";
-import { BackButton } from "@/components/back-button";
+"use client";
 
-export const metadata: Metadata = {
-  title: "Himanshu Pandey — Resume & CV | Software Engineer",
-  description:
-    "Download or view the resume of Himanshu Pandey — Software Engineer specialising in React, Next.js, Node.js, and AI integrations. Available for freelance projects and full-time roles.",
-  keywords: [
-    "Himanshu Pandey resume",
-    "Himanshu Pandey CV",
-    "Himanshu Pandey software engineer",
-    "Himanshu Pandey developer",
-    "full-stack developer resume India",
-    "Next.js developer resume",
-    "React developer resume",
-  ],
-  alternates: { canonical: "/resume" },
-  openGraph: {
-    title: "Himanshu Pandey — Resume & CV",
-    description:
-      "Download or view the resume of Himanshu Pandey — Full-stack Software Engineer.",
-    url: "https://himanshupandey.me/resume",
-    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
-  },
+import React from "react";
+import { BackButton } from "@/components/back-button";
+import { Download, ExternalLink } from "lucide-react";
+import { resume } from "@/lib/site";
+
+// ── Resume data matching the uploaded PDF ──────────────────────────────────────
+
+const CONTACT = {
+  email: "himanshupandey.sde@gmail.com",
+  phone: "+91 70785 44148",
+  linkedin: { label: "LinkedIn", href: "https://www.linkedin.com/in/himanshupandey14/" },
+  github: { label: "GitHub", href: "https://github.com/14-himanshu" },
+  portfolio: { label: "Portfolio", href: "https://himanshupandey.me" },
 };
 
-const actionClass = cn(
-  "inline-flex items-center justify-center gap-2 rounded-2xl px-6 py-3.5 text-sm font-bold transition-all active:scale-[0.98]",
-);
+const SKILLS = {
+  "Languages": "JavaScript (ES6+), TypeScript, Python, HTML5, CSS3",
+  "Frontend": "React 19, Next.js, Tailwind CSS, Framer Motion, Vite",
+  "Backend": "Node.js, Express.js, FastAPI, RESTful APIs, WebSockets (ws), Prisma ORM",
+  "Databases": "MongoDB, PostgreSQL, MySQL",
+  "Tools": "Git, GitHub, Cloudinary, Vercel, Render, Postman, Zod",
+};
+
+const PROJECTS = [
+  {
+    title: "CourseSpace",
+    subtitle: "Secure E-Learning SaaS Platform",
+    date: "Jan 2026",
+    stack: "React, Node.js, Express, MongoDB, Zod, Cloudinary",
+    live: "https://coursespace-xi.vercel.app/",
+    github: "https://github.com/14-himanshu/coursespace",
+    bullets: [
+      "Built a secure course platform with runtime Zod payload validation eliminating NoSQL injection vulnerabilities, plus Helmet headers and modular IP rate-limiters to harden against DDoS/brute-force.",
+      "Mitigated digital piracy risks by sandboxing YouTube Player APIs in custom iframes; built a stateless media pipeline with Multer → Cloudinary CDN and rolling file-system logging via Winston.",
+    ],
+  },
+  {
+    title: "Second Brain",
+    subtitle: "AI-Powered Knowledge Workspace",
+    date: "Nov 2025",
+    stack: "React, Node.js, MongoDB, Redis, Groq/OpenAI APIs",
+    live: "https://secondbrain-chi.vercel.app/signin",
+    github: "https://github.com/14-himanshu/secondbrain-monorepo",
+    bullets: [
+      "Built a production-ready knowledge hub automating ingestion of articles and YouTube transcripts into a MongoDB vector index for context-grounded RAG chat via Groq and OpenAI APIs.",
+      "Designed an async queue system using Redis + BullMQ with a freemium conversion funnel enforcing custom billing blocks for free-tier users.",
+      "Bypassed strict data-center IP blocks and 429 rate errors from streaming platforms by engineering an automated fallback orchestration pipeline using public oEmbed APIs.",
+      "Secured multi-user data with JWT + Google OAuth 2.0, Zod schema validation, and bcrypt hashing; extended OAuth callback to eliminate duplicate account bugs via cross-layer lookups.",
+    ],
+  },
+  {
+    title: "Slate",
+    subtitle: "Real-Time Collaborative Chat Platform",
+    date: "Apr 2025",
+    stack: "React 19, Node.js, WebSockets, MongoDB, Cloudinary, Vite",
+    live: "https://slate-project.vercel.app/",
+    github: "https://github.com/14-himanshu/slate",
+    bullets: [
+      "Developed a low-latency multi-room WebSocket server sustaining 100+ simultaneous connections with optimistic UI updates achieving sub-100ms perceived message latency.",
+      "Implemented full message lifecycle — typing indicators, inline replies, presence tracking, edits, soft-deletes — synchronized in real time across room-scoped client maps.",
+      "Reduced initial JavaScript payload by 30% via Vite code-splitting and lazy-route evaluation; secured WebSocket upgrades with JWT handshake validation and ownership authorization.",
+    ],
+  },
+];
+
+const EDUCATION = [
+  {
+    institution: "Newton School of Technology, Rishihood University",
+    detail: "Bachelor of Technology (Data Science)",
+    year: "2024 – 2028",
+  },
+  {
+    institution: "Kendraya Vidyalaya Almora",
+    detail: "Intermediate (Class XII), Grade: 87.0%",
+    year: "2022 – 2023",
+  },
+  {
+    institution: "Holy Angel Public School",
+    detail: "Matriculation (Class X), Grade: 90.0%",
+    year: "2020 – 2021",
+  },
+];
+
+const ACHIEVEMENTS = [
+  "LeetCode: Solved challenges spanning Graphs, DP, Trees, Sliding Window, and Two Pointers; competes in weekly timed contests to sharpen algorithmic speed and pattern recognition.",
+  "Portfolio: Built himanshupandey.me from scratch using Next.js + Framer Motion with custom HSL design tokens, dark-mode transitions, and zero external UI library dependencies.",
+];
+
+// ── Sub-components ────────────────────────────────────────────────────────────
+
+function SectionHeading({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="resume-section-heading">
+      <h2>{children}</h2>
+      <div className="resume-rule" />
+    </div>
+  );
+}
+
+// ── Page ─────────────────────────────────────────────────────────────────────
 
 export default function ResumePage() {
-  const pdfSrc = `${resume.href}#view=FitH`;
-
   return (
     <main className="min-h-screen flex flex-col">
-      <Navbar />
-      <header className="sticky top-0 z-50 border-b border-border/40 bg-background/80 backdrop-blur-xl">
-        <div className="container mx-auto flex flex-wrap items-center justify-between gap-4 px-4 py-4">
-          <BackButton label="Back to portfolio" href="/" />
-          <div className="flex flex-wrap items-center gap-3">
+      {/* ── Sticky Toolbar ── */}
+      <header className="resume-toolbar border-b border-border/40">
+        <div className="resume-toolbar-inner max-w-5xl">
+          <div className="resume-toolbar-left">
+            <BackButton label="Back" href="/" />
+          </div>
+
+          <div className="flex-1 flex justify-center">
+            <span className="text-sm font-medium text-muted-foreground hidden sm:inline-block">
+              Interactive Resume
+            </span>
+          </div>
+
+          <div className="resume-toolbar-right">
             <a
               href={resume.href}
               target="_blank"
               rel="noopener noreferrer"
-              className={cn(
-                actionClass,
-                "border border-border/60 bg-secondary text-secondary-foreground hover:bg-secondary/80",
-              )}
+              className="resume-action-btn resume-action-btn--ghost"
+              title="Open Original PDF"
             >
-              Open in new tab
-              <ExternalLink className="h-4 w-4" />
+              <ExternalLink size={15} />
+              <span className="resume-action-label">Open PDF</span>
             </a>
             <a
               href={resume.href}
               download={resume.fileName}
-              className={cn(
-                actionClass,
-                "bg-primary text-primary-foreground hover:scale-[1.02]",
-              )}
+              className="resume-action-btn resume-action-btn--primary"
+              title="Download PDF"
             >
-              Download PDF
-              <Download className="h-4 w-4" />
+              <Download size={15} />
+              <span className="resume-action-label">Download</span>
             </a>
           </div>
         </div>
       </header>
 
-      <section className="container mx-auto flex-1 px-4 py-6 md:py-10">
-        <div className="mb-6 space-y-2">
-          <p className="text-primary text-xs font-black uppercase tracking-[0.3em]">
-            Resume
-          </p>
-          <h1 className="font-outfit text-3xl font-bold tracking-tight md:text-4xl">
-            Himanshu Pandey
-          </h1>
-          <p className="max-w-2xl text-muted-foreground text-sm md:text-base leading-relaxed">
-            Software Engineer — open the PDF below or download a copy for your
-            records.
-          </p>
-        </div>
-
-        {/* Desktop / tablet: inline PDF preview */}
-        <div className="glass hidden overflow-hidden rounded-3xl border border-border/40 shadow-2xl md:block">
-          <object
-            data={pdfSrc}
-            type="application/pdf"
-            className="h-[calc(100vh-14rem)] min-h-[70vh] w-full bg-background"
-            aria-label="Himanshu Pandey resume PDF preview"
-          >
-            <iframe
-              src={pdfSrc}
-              title="Himanshu Pandey resume"
-              className="h-[calc(100vh-14rem)] min-h-[70vh] w-full bg-background"
-            />
-          </object>
-        </div>
-
-        {/* Mobile: native viewer (iframes often fail on iOS Safari) */}
-        <div className="glass flex flex-col items-center rounded-3xl border border-border/40 px-6 py-12 text-center shadow-2xl md:hidden">
-          <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10 border border-primary/15">
-            <FileText className="h-8 w-8 text-primary" />
+      {/* ── Beautiful HTML Resume ── */}
+      <div className="resume-page-wrapper">
+        <div className="resume-document">
+          {/* ── Header ── */}
+          <div className="resume-header">
+            <h1 className="resume-name">Himanshu Pandey</h1>
+            <p className="resume-title">Specializing in Full-Stack Development and Data Science • Open to SDE Internships</p>
+            <div className="resume-contact-row">
+              <span>{CONTACT.phone}</span>
+              <span className="resume-contact-sep">|</span>
+              <a href={`mailto:${CONTACT.email}`} className="resume-contact-link">
+                {CONTACT.email}
+              </a>
+              <span className="resume-contact-sep">|</span>
+              <a href={CONTACT.linkedin.href} target="_blank" rel="noopener noreferrer" className="resume-contact-link">
+                LinkedIn
+              </a>
+              <span className="resume-contact-sep">|</span>
+              <a href={CONTACT.github.href} target="_blank" rel="noopener noreferrer" className="resume-contact-link">
+                GitHub
+              </a>
+              <span className="resume-contact-sep">|</span>
+              <a href={CONTACT.portfolio.href} target="_blank" rel="noopener noreferrer" className="resume-contact-link">
+                {CONTACT.portfolio.label}
+              </a>
+            </div>
           </div>
-          <h2 className="font-outfit text-xl font-bold tracking-tight">
-            Resume ready to view
-          </h2>
-          <p className="mt-3 max-w-sm text-sm text-muted-foreground leading-relaxed">
-            For the best experience on your phone, open the PDF in your browser
-            or save it to your device.
-          </p>
-          <div className="mt-8 flex w-full max-w-xs flex-col gap-3">
-            <a
-              href={resume.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={cn(actionClass, "w-full bg-primary text-primary-foreground")}
-            >
-              View resume
-              <ExternalLink className="h-4 w-4" />
-            </a>
-            <a
-              href={resume.href}
-              download={resume.fileName}
-              className={cn(
-                actionClass,
-                "w-full border border-border/60 bg-secondary text-secondary-foreground",
-              )}
-            >
-              Download PDF
-              <Download className="h-4 w-4" />
-            </a>
-          </div>
+
+          {/* ── Technical Skills ── */}
+          <section className="resume-section">
+            <SectionHeading>Technical Skills</SectionHeading>
+            <div className="resume-skills-grid">
+              {Object.entries(SKILLS).map(([category, items]) => (
+                <div key={category} className="resume-skill-row">
+                  <span className="resume-skill-label">{category}:</span>
+                  <span className="resume-skill-value">{items}</span>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* ── Projects ── */}
+          <section className="resume-section">
+            <SectionHeading>Projects</SectionHeading>
+            {PROJECTS.map((project) => (
+              <div key={project.title} className="resume-project">
+                <div className="resume-project-header">
+                  <div>
+                    <span className="resume-project-title">{project.title}</span>
+                    <span className="resume-project-subtitle"> — {project.subtitle}</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <div className="resume-project-links hidden sm:flex">
+                      <a href={project.github} target="_blank" rel="noopener noreferrer" className="resume-link-pill">
+                        GitHub
+                      </a>
+                      <span className="resume-contact-sep">|</span>
+                      <a href={project.live} target="_blank" rel="noopener noreferrer" className="resume-link-pill">
+                        Live Demo
+                      </a>
+                    </div>
+                    <span className="resume-date">{project.date}</span>
+                  </div>
+                </div>
+                <p className="resume-stack">{project.stack}</p>
+                <ul className="resume-bullet-list">
+                  {project.bullets.map((b, i) => (
+                    <li key={i}>{b}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </section>
+
+          {/* ── Education ── */}
+          <section className="resume-section">
+            <SectionHeading>Education</SectionHeading>
+            {EDUCATION.map((edu) => (
+              <div key={edu.institution} className="resume-edu-row">
+                <div>
+                  <span className="resume-edu-institution">{edu.institution}</span>
+                  <p className="resume-edu-detail">{edu.detail}</p>
+                </div>
+                <span className="resume-date">{edu.year}</span>
+              </div>
+            ))}
+          </section>
+
+          {/* ── Achievements ── */}
+          <section className="resume-section">
+            <SectionHeading>Achievements & Coding Profiles</SectionHeading>
+            <ul className="resume-bullet-list">
+              {ACHIEVEMENTS.map((achievement, i) => {
+                const [boldPart, rest] = achievement.split(": ");
+                return (
+                  <li key={i}>
+                    <strong>{boldPart}:</strong> {rest}
+                  </li>
+                );
+              })}
+            </ul>
+          </section>
+
         </div>
-      </section>
+      </div>
     </main>
   );
 }
