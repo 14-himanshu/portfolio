@@ -46,25 +46,6 @@ export function ArchitectureDiagram({ data }: { data: DiagramData }) {
         />
       ))}
 
-      {/* ── Edge labels ─────────────────────────────────────────────────── */}
-      {data.edges.map((edge) =>
-        edge.label && edge.lx !== undefined && edge.ly !== undefined ? (
-          <motion.text
-            key={`lbl-${edge.id}`}
-            x={edge.lx}
-            y={edge.ly}
-            textAnchor="middle"
-            fontSize="5.5"
-            fontFamily="monospace"
-            style={{ fill: "var(--primary)", fillOpacity: 0.65 }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: edge.delay + 0.65, duration: 0.3 }}
-          >
-            {edge.label}
-          </motion.text>
-        ) : null
-      )}
 
       {/* ── Nodes (rendered above edges) ───────────────────────────────── */}
       {data.nodes.map((node, i) => {
@@ -130,23 +111,50 @@ export function ArchitectureDiagram({ data }: { data: DiagramData }) {
               {node.label}
             </text>
 
-            {/* Sublabel (tech stack / description) */}
-            {node.sublabel && (
-              <text
-                x={node.x + 4}
-                y={node.y + 9}
-                textAnchor="middle"
-                fontSize="5.5"
-                fontFamily="monospace"
-                fill={node.color}
-                fillOpacity="0.85"
-              >
-                {node.sublabel}
-              </text>
-            )}
-          </motion.g>
-        )
-      })}
-    </svg>
+              {/* Sublabel (tech stack / description) */}
+              {node.sublabel && (
+                <text
+                  x={node.x + 4}
+                  y={node.y + 9}
+                  textAnchor="middle"
+                  fontSize="5.5"
+                  fontFamily="monospace"
+                  fill={node.color}
+                  fillOpacity="0.85"
+                >
+                  {node.sublabel}
+                </text>
+              )}
+            </motion.g>
+          )
+        })}
+
+        {/* ── Edge labels (rendered above nodes) ──────────────────────────── */}
+        {data.edges.map((edge) =>
+          edge.label && edge.lx !== undefined && edge.ly !== undefined ? (
+            <motion.text
+              key={`lbl-${edge.id}`}
+              x={edge.lx}
+              y={edge.ly}
+              textAnchor="middle"
+              fontSize="5.5"
+              fontFamily="monospace"
+              style={{ 
+                fill: "var(--primary)", 
+                fillOpacity: 0.85,
+                stroke: "var(--background)",
+                strokeWidth: 2,
+                strokeLinejoin: "round",
+                paintOrder: "stroke fill"
+              }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: edge.delay + 0.65, duration: 0.3 }}
+            >
+              {edge.label}
+            </motion.text>
+          ) : null
+        )}
+      </svg>
   )
 }
