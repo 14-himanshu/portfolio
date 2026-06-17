@@ -25,6 +25,103 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    slug: "webhook-orchestrator",
+    title: "Webhook Orchestrator",
+    description:
+      "A fault-tolerant, distributed delivery system designed to handle asynchronous webhook ingestion and delivery, solving serverless timeouts and data loss.",
+    image: "/projects/webhook-orchestrator.png",
+    tags: ["Next.js", "Node.js", "Redis", "BullMQ", "PostgreSQL"],
+    link: "https://webhook-orchestrator-one.vercel.app",
+    github: "https://github.com/14-himanshu/webhook-orchestrator",
+    highlights: [
+      "Decoupled Architecture",
+      "Idempotency & HMAC Auth",
+      "Exponential Backoff",
+      "Dead Letter Queue (DLQ)",
+    ],
+    caseStudy: {
+      summary:
+        "The Webhook Orchestrator is a fault-tolerant, distributed delivery system designed to handle asynchronous webhook ingestion and delivery. It solves the common problems of timeouts and data loss in serverless environments by entirely decoupling the receiving of data from its processing and delivery.",
+      sections: [
+        {
+          title: "The Problem",
+          paragraphs: [
+            "In modern web applications, integrating with third-party services via webhooks is standard practice. However, standard CRUD applications struggle with webhook reliability for two main reasons:"
+          ],
+          bullets: [
+            "Serverless Timeouts: Serverless platforms (like Vercel or Netlify) strictly limit execution times. If a webhook delivery takes too long or a connection hangs, the serverless function is killed.",
+            "Downstream Failures & Data Loss: If the target server receiving the webhook experiences an outage, traditional synchronous apps will fail to deliver the data, leading to permanent data loss and breaking integrations."
+          ]
+        },
+        {
+          title: "The Solution",
+          paragraphs: [
+            "I engineered a four-tier architecture that separates the \"Ingestion API\" (receiving the data) from the \"Worker Process\" (delivering the data)."
+          ],
+          bullets: [
+            "High-Speed Ingestion: When a client sends a webhook, the Next.js API instantly validates the request and offloads the payload to a Redis queue. It immediately responds to the client with a 202 Accepted status. This guarantees the public-facing API remains highly available and never times out.",
+            "Reliable Background Processing: A standalone Node.js worker continuously monitors the Redis queue. It pulls jobs off the queue and attempts to deliver them to their final destination at a safe, controlled rate.",
+            "Fault Tolerance & Exponential Backoff: If the target server is down, the system doesn't crash or discard the webhook. Instead, the worker employs an Exponential Backoff strategy—automatically waiting and retrying the delivery up to 5 times.",
+            "The Dead Letter Queue (DLQ): To guarantee zero data loss, any webhook that fails all 5 retry attempts is safely caught and permanently logged into a PostgreSQL database known as a Dead Letter Queue."
+          ]
+        },
+        {
+          title: "Architecture & Workflow",
+          paragraphs: [
+            "The system decouples the high-speed ingestion API from the stateful background worker to guarantee zero data loss and prevent serverless timeouts:"
+          ],
+          code: `[Client Application] ──> [Next.js Ingestion API] ──(202 Accepted)──> [Client]
+                                       │
+                                       ▼ (Offload Payload)
+                                 [Redis Queue]
+                                       │
+                                       ▼ (Pull Job)
+                            [Node.js Background Worker]
+                                       │
+                ┌──────────────────────┴──────────────────────┐
+                ▼                                             ▼
+          (Success)                                    (Failure - 5 Retries)
+                │                                             │
+      [Target Server / Webhook URL]                           ▼
+                                                  [Dead Letter Queue (PostgreSQL)]`,
+          bullets: [
+            "Ingestion: The Next.js API receives the webhook, verifies the HMAC signature, queues it in Redis, and immediately returns a 202 status.",
+            "Processing: The Node.js worker pulls jobs from Redis and attempts delivery to the target server, controlled by a token-bucket rate limiter.",
+            "Retry Logic: If the target server is unreachable, the worker retries the delivery using an Exponential Backoff strategy (up to 5 times).",
+            "Dead Letter Queue: Failed webhooks that exhaust all retries are permanently stored in PostgreSQL for manual auditing and recovery."
+          ]
+        },
+        {
+          title: "Key Technical Features",
+          paragraphs: [
+            "The system is built with several enterprise-grade reliability features:"
+          ],
+          bullets: [
+            "Decoupled Architecture: Effectively separated the fast, serverless Next.js API from the heavy-lifting, stateful Node.js background worker.",
+            "Idempotency: Implemented Idempotency-Key checks to ensure that if the exact same data is accidentally sent twice, the system recognizes it and processes it only once.",
+            "Token-Bucket Rate Limiting: Built global rate limits to prevent DDoS attacks and tightly control the speed at which webhooks are ingested and delivered.",
+            "Cryptographic Security: Enforced zero-trust security using HMAC SHA-256 signatures to verify the authenticity of all incoming and outgoing webhooks.",
+            "Docker Orchestration: Containerized the entire stack (PostgreSQL, Redis, Next.js, Node Worker) using docker-compose to ensure the local development environment perfectly mirrors production."
+          ]
+        },
+        {
+          title: "Challenges & Learnings",
+          paragraphs: [
+            "One of the biggest challenges during development was testing the cryptographic signatures and the worker's retry logic. Testing this manually via terminal commands was tedious and error-prone.",
+            "To solve this, I built a custom Developer Console & Webhook Simulator directly into the project's frontend dashboard. This allowed me to easily simulate failing servers (e.g., returning 500 errors) and test the system's fault tolerance and Dead Letter Queue functionality through a clean, intuitive UI.",
+            "Building this project significantly deepened my understanding of distributed systems, message brokers (Redis/BullMQ), and the architectural trade-offs between serverless and stateful execution models."
+          ]
+        },
+        {
+          title: "Conclusion",
+          paragraphs: [
+            "The Webhook Orchestrator demonstrates how to build enterprise-grade reliability into web applications. By utilizing queues, background workers, and smart retry mechanisms, the system guarantees 100% observability and zero data loss, ensuring rock-solid communication between web services."
+          ]
+        }
+      ]
+    }
+  },
+  {
     slug: "second-brain",
     title: "Second Brain",
     description:
