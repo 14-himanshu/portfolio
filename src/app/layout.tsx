@@ -5,9 +5,10 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "sonner";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { EasterEgg } from "@/components/easter-egg";
 
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
-const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit" });
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter", preload: false });
+const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit", preload: false });
 
 const siteUrl = "https://himanshupandey.me"; // your real deployed domain
 
@@ -116,6 +117,7 @@ export default function RootLayout({
             richColors
             closeButton
           />
+          <EasterEgg />
           <SpeedInsights />
         </ThemeProvider>
       </body>

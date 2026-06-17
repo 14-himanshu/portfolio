@@ -1,18 +1,17 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import { Brain, Cpu, Layout, Layers } from "lucide-react"
+import { motion } from "framer-motion";
+import { Brain, Cpu, Layout, Layers } from "lucide-react";
 
-// ── Only tech that is ACTUALLY used in at least one shipped project ──────────
 const skillCategories = [
   {
     name: "Frontend",
     icon: Layout,
-    description: "UI layer across all four projects",
+    description: "UI layer across shipped projects",
     skills: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Vite", "Framer Motion"],
   },
   {
-    name: "Backend & Systems",
+    name: "Backend",
     icon: Cpu,
     description: "APIs, queues, and real-time layers",
     skills: ["Node.js", "Express", "FastAPI", "BullMQ", "Redis", "WebSocket (ws)"],
@@ -20,74 +19,53 @@ const skillCategories = [
   {
     name: "AI & Data",
     icon: Brain,
-    description: "Pipelines built across Second Brain & DevScope",
+    description: "Pipelines for agent orchestration",
     skills: ["LangGraph", "LangChain", "Groq", "OpenAI", "Vector Embeddings", "RAG"],
   },
   {
     name: "Infrastructure",
     icon: Layers,
-    description: "Storage, delivery, payments, and deployment",
+    description: "Delivery and deployment",
     skills: ["MongoDB", "Cloudinary", "Razorpay", "Vercel", "Render", "Git"],
   },
-]
-
-// The marquee shows the genuinely unusual picks — not the generic ones everyone lists
-const unusualTech = [
-  "BullMQ", "LangGraph", "Vector Search", "RAG", "oEmbed Fallback",
-  "Razorpay", "ws (raw WebSocket)", "Groq", "Puppeteer", "MongoDB Atlas",
-]
+];
 
 export function Skills() {
   return (
-    <section id="skills" className="py-32 relative overflow-hidden">
-      {/* Decorative Glow */}
-      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-primary/5 rounded-full blur-[120px] translate-x-1/2 translate-y-1/2" />
-      
-      <div className="container px-4 mx-auto">
-        <div className="max-w-3xl mb-24">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="flex items-center gap-3 text-primary font-black uppercase tracking-[0.3em] text-xs mb-4"
-          >
-            <Layers className="w-4 h-4" />
-            Core Stack
-          </motion.div>
-          <h2 className="text-5xl md:text-7xl font-bold font-outfit tracking-tighter leading-[0.95] mb-6">
-            Tools I&apos;ve shipped <br />
-            <span className="text-muted-foreground">real products with.</span>
-          </h2>
-          <p className="text-muted-foreground text-xl leading-relaxed">
-            Everything listed here is backed by a shipped project — not a tutorial or a certificate.
-            The unusual choices (LangGraph, BullMQ, raw WebSocket) are intentional.
+    <section id="skills" className="py-16 md:py-24 border-b border-border/50">
+      <div className="container px-4 mx-auto max-w-5xl">
+        <div className="mb-10 text-center flex flex-col items-center">
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4 font-outfit">Core Stack</h2>
+          <p className="text-muted-foreground text-sm max-w-[600px]">
+            Tools I've shipped real products with. No bootcamp certificates, just intentional choices backed by production code.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
           {skillCategories.map((cat, i) => (
             <motion.div
               key={cat.name}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.08 }}
-              className="glass p-8 rounded-[2.5rem] border border-border/40 hover:border-primary/20 transition-all group"
+              transition={{ delay: i * 0.1 }}
+              className="flex flex-col p-6 rounded-2xl border border-border/60 bg-card hover:bg-muted/30 transition-colors"
             >
-              <div className="flex items-start justify-between mb-6">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center border border-primary/20 text-primary">
+                  <cat.icon className="w-5 h-5" />
+                </div>
                 <div>
-                  <div className="w-11 h-11 rounded-2xl bg-primary/5 border border-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/10 transition-colors">
-                    <cat.icon className="w-5 h-5 text-primary" />
-                  </div>
-                  <h3 className="text-xl font-bold tracking-tight">{cat.name}</h3>
-                  <p className="text-xs text-muted-foreground/60 font-mono mt-1">{cat.description}</p>
+                  <h3 className="font-bold text-foreground">{cat.name}</h3>
+                  <p className="text-xs text-muted-foreground">{cat.description}</p>
                 </div>
               </div>
-              <div className="flex flex-wrap gap-2">
+              
+              <div className="flex flex-wrap gap-2 mt-auto">
                 {cat.skills.map(skill => (
                   <span
                     key={skill}
-                    className="px-3 py-1.5 bg-background border border-border/60 rounded-xl text-sm font-medium hover:border-primary/30 hover:shadow-sm transition-all cursor-default"
+                    className="px-2.5 py-1 bg-secondary text-secondary-foreground rounded-md text-xs font-medium cursor-default border border-border/50 hover:border-primary/30 transition-colors"
                   >
                     {skill}
                   </span>
@@ -96,24 +74,7 @@ export function Skills() {
             </motion.div>
           ))}
         </div>
-        
-        {/* Marquee — shows the UNUSUAL stack choices, not the generic ones */}
-        <div className="mt-20 pt-12 border-t border-border/40 overflow-hidden relative">
-          <p className="text-[10px] font-mono uppercase tracking-[0.3em] text-muted-foreground/40 mb-6">
-            The non-obvious choices ↓
-          </p>
-          <div className="flex gap-16 animate-marquee whitespace-nowrap">
-            {[...unusualTech, ...unusualTech].map((tech, i) => (
-              <span
-                key={i}
-                className="text-3xl md:text-5xl font-black uppercase tracking-tighter text-muted-foreground/8 hover:text-primary/15 transition-colors cursor-default"
-              >
-                {tech}
-              </span>
-            ))}
-          </div>
-        </div>
       </div>
     </section>
-  )
+  );
 }

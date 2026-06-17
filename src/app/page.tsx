@@ -1,17 +1,19 @@
 import { Navbar } from "@/components/navbar";
+import { resume } from "@/lib/site";
 import { Hero } from "@/components/hero";
 import { ScrollToTop } from "@/components/scroll-to-top";
-import { resume } from "@/lib/site";
 import { Experience } from "@/components/experience";
+import { GitGraph } from "@/components/git-graph";
 import { Projects } from "@/components/projects";
 import { Skills } from "@/components/skills";
 import { Contact } from "@/components/contact";
 
 export default function Home() {
   return (
-    <main className="min-h-screen space-y-24 pb-24">
+    <main className="min-h-screen space-y-16 md:space-y-24 pb-24">
       <Navbar />
       <Hero />
+      <GitGraph />
       <Experience />
       <Projects />
       <Skills />
