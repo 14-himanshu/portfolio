@@ -82,9 +82,20 @@ const EDUCATION = [
   },
 ];
 
+const CERTIFICATIONS = [
+  {
+    title: "Google AI Essentials Specialization | Google",
+    date: "Jun 2026",
+    bullets: [
+      "Completed a rigorous 5-course curriculum covering advanced prompt engineering frameworks, productivity optimization, and responsible AI architectures.",
+      "Mastered practical generative AI strategies to accelerate software development workflows, automate data-driven problem solving, and mitigate algorithmic bias.",
+    ],
+  },
+];
+
 const ACHIEVEMENTS = [
-  "LeetCode: Solved challenges spanning Graphs, DP, Trees, Sliding Window, and Two Pointers; competes in weekly timed contests to sharpen algorithmic speed and pattern recognition.",
-  "Portfolio: Built himanshupandey.me from scratch using Next.js + Framer Motion with custom HSL design tokens, dark-mode transitions, and zero external UI library dependencies.",
+  "LeetCode: Developing algorithmic proficiency by actively practicing core patterns and data structures, including Graphs, Dynamic Programming, Trees, Sliding Window, and Two Pointers.",
+  "Portfolio: Engineered himanshupandey.me from scratch — Next.js + Framer Motion, custom HSL design tokens, dark-mode transitions, zero external UI library dependencies.",
 ];
 
 // ── Sub-components ────────────────────────────────────────────────────────────
@@ -146,7 +157,7 @@ export default function ResumePage() {
           {/* ── Header ── */}
           <div className="resume-header">
             <h1 className="resume-name">Himanshu Pandey</h1>
-            <p className="resume-title">Specializing in Full-Stack Development and Data Science • Open to SDE Internships</p>
+            <p className="resume-title">Full-Stack Engineer • Building production-grade distributed systems • Open to SDE Internships</p>
             <div className="resume-contact-row">
               <span>{CONTACT.phone}</span>
               <span className="resume-contact-sep">|</span>
@@ -224,6 +235,26 @@ export default function ResumePage() {
                   <p className="resume-edu-detail">{edu.detail}</p>
                 </div>
                 <span className="resume-date">{edu.year}</span>
+              </div>
+            ))}
+          </section>
+
+          {/* ── Certifications ── */}
+          <section className="resume-section">
+            <SectionHeading>Certifications</SectionHeading>
+            {CERTIFICATIONS.map((cert) => (
+              <div key={cert.title} className="resume-project">
+                <div className="resume-project-header">
+                  <div>
+                    <span className="resume-project-title">{cert.title}</span>
+                  </div>
+                  <span className="resume-date">{cert.date}</span>
+                </div>
+                <ul className="resume-bullet-list mt-2">
+                  {cert.bullets.map((b, i) => (
+                    <li key={i}>{b}</li>
+                  ))}
+                </ul>
               </div>
             ))}
           </section>
