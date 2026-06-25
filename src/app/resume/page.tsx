@@ -84,7 +84,9 @@ const EDUCATION = [
 
 const CERTIFICATIONS = [
   {
-    title: "Google AI Essentials Specialization | Google",
+    title: "Google AI Essentials Specialization",
+    issuer: "Google",
+    url: "https://www.coursera.org/account/accomplishments/specialization/AJOQZEZI5IV5",
     date: "Jun 2026",
     bullets: [
       "Completed a rigorous 5-course curriculum covering advanced prompt engineering frameworks, productivity optimization, and responsible AI architectures.",
@@ -246,7 +248,19 @@ export default function ResumePage() {
               <div key={cert.title} className="resume-project">
                 <div className="resume-project-header">
                   <div>
-                    <span className="resume-project-title">{cert.title}</span>
+                    {cert.url ? (
+                      <a
+                        href={cert.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="resume-project-title hover:underline underline-offset-4 cursor-pointer"
+                      >
+                        {cert.title}
+                      </a>
+                    ) : (
+                      <span className="resume-project-title">{cert.title}</span>
+                    )}
+                    {cert.issuer && <span className="resume-project-title"> | {cert.issuer}</span>}
                   </div>
                   <span className="resume-date">{cert.date}</span>
                 </div>
