@@ -26,9 +26,30 @@ export async function generateMetadata({
     };
   }
 
+  const siteUrl = "https://himanshupandey.me";
+
   return {
     title: `${project.title} | Case Study`,
     description: project.description,
+    openGraph: {
+      title: `${project.title} | Case Study`,
+      description: project.description,
+      url: `${siteUrl}/projects/${project.slug}`,
+      images: [
+        {
+          url: project.image,
+          width: 1200,
+          height: 630,
+          alt: `${project.title} preview image`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${project.title} | Case Study`,
+      description: project.description,
+      images: [project.image],
+    },
   };
 }
 

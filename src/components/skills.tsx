@@ -37,7 +37,7 @@ export function Skills() {
         <div className="mb-10 text-center flex flex-col items-center">
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4 font-outfit">Core Stack</h2>
           <p className="text-muted-foreground text-sm max-w-[600px]">
-            Tools I've shipped real products with. No bootcamp certificates, just intentional choices backed by production code.
+            Tools I&apos;ve shipped real products with. No bootcamp certificates, just intentional choices backed by production code.
           </p>
         </div>
 

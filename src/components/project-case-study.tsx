@@ -213,7 +213,7 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
 
                   {section.quote && (
                     <blockquote className="mt-6 border-l-2 border-primary/40 pl-4 text-base italic text-muted-foreground">
-                      "{section.quote}"
+                      &quot;{section.quote}&quot;
                     </blockquote>
                   )}
                 </article>
