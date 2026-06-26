@@ -23,7 +23,7 @@ export function GitGraph() {
             GitHub Contributions
           </h2>
           <p className="text-muted-foreground text-sm">
-            What I've been building lately.
+            What I&apos;ve been building lately.
           </p>
         </motion.div>
 

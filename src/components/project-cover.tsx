@@ -1,11 +1,11 @@
 "use client";
 
 import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
-import { Workflow, BrainCircuit, ShieldCheck, MessageSquare, TerminalSquare } from "lucide-react";
+import { Workflow, BrainCircuit, ShieldCheck, MessageSquare, TerminalSquare, LucideIcon } from "lucide-react";
 import { MouseEvent } from "react";
 
 type ProjectMeta = {
-  icon: any;
+  icon: LucideIcon;
   color: string;
   gradient: string;
 };

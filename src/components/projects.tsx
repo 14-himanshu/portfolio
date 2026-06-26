@@ -76,10 +76,10 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 
         {/* Action Links */}
         <div className="absolute top-3 right-3 flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
-           <Link href={project.github} target="_blank" className="p-2 bg-background/90 backdrop-blur rounded hover:bg-background border transition-colors text-foreground shadow-sm">
+           <Link href={project.github} target="_blank" aria-label="View source on GitHub" className="p-2 bg-background/90 backdrop-blur rounded hover:bg-background border transition-colors text-foreground shadow-sm">
              <FaGithub className="w-4 h-4" />
            </Link>
-           <Link href={project.link} target="_blank" className="p-2 bg-background/90 backdrop-blur rounded hover:bg-background border transition-colors text-foreground shadow-sm">
+           <Link href={project.link} target="_blank" aria-label="View live project" className="p-2 bg-background/90 backdrop-blur rounded hover:bg-background border transition-colors text-foreground shadow-sm">
              <ExternalLink className="w-4 h-4" />
            </Link>
         </div>
