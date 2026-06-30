@@ -41,7 +41,7 @@ const PROJECTS = [
     subtitle: "AI-Powered Knowledge Workspace",
     date: "Nov 2025",
     stack: "React 19, TypeScript, Node.js, MongoDB, Redis, BullMQ, Groq/OpenAI",
-    live: "https://secondbrain-chi.vercel.app/signin",
+    live: "https://secondbrain-chi.vercel.app/",
     github: "https://github.com/14-himanshu/secondbrain-monorepo",
     bullets: [
       "Automated ingestion of articles and YouTube transcripts into a MongoDB Atlas vector index; RAG pipeline via Groq and OpenAI APIs delivers sub-2s context-grounded responses across 1,000+ stored knowledge chunks.",
@@ -60,6 +60,19 @@ const PROJECTS = [
       "Engineered a four-tier decoupled webhook delivery system routing 10,000+ payloads/min from serverless Next.js ingestion to stateful Node.js workers via Redis, eliminating cold-start timeout failures entirely.",
       "Guaranteed zero data loss via exponential backoff retries and a PostgreSQL Dead Letter Queue (DLQ); HMAC SHA-256 signature verification and idempotency keys enforced end-to-end payload integrity.",
       "Deployed containerized workers via Docker with token-bucket rate limiters controlling ingestion velocity; architecture sustained sub-200ms delivery p99 under sustained load.",
+    ],
+  },
+  {
+    title: "Vitality AI",
+    subtitle: "Clinical-Grade Health Assistant",
+    date: "Jul 2026",
+    stack: "React 19, Node.js, Python, FastAPI, SQLite, Groq",
+    live: "https://vitality-ai-git-main-14-himanshus-projects.vercel.app/",
+    github: "https://github.com/14-himanshu/vitality-ai",
+    bullets: [
+      "Architected a decoupled three-tier microservice ecosystem featuring a Dual-Agent triage system that actively intercepts LLM responses to screen for medical emergencies.",
+      "Engineered a clinical memory store in SQLite that injects historical user context alongside RAG-driven PubMed citations and USDA nutritional facts.",
+      "Ensured Zero-Data-Retention compliance by building a Node.js proxy that dynamically scrubs PII before routing sanitized prompts to the external Python Groq AI engine.",
     ],
   },
 ];
