@@ -165,4 +165,27 @@ export const architectures: Record<string, DiagramData> = {
       { id: "db-c", d: "M400,151 C200,185 100,111 100,111",  delay: 1.10, label: "response",  lx: 240, ly: 179 },
     ],
   },
+
+  /* ─── VITALITY AI ────────────────────────────────────────────────────────────
+     5-node dual-agent health flow:
+     React 19 → Node.js (PII Scrub/Context) ↔ SQLite (Memory) → FastAPI (AI) ↔ PubMed/USDA
+     viewBox 500×210, NW=80, NH=26
+  ─────────────────────────────────────────────────────────────────────────── */
+  "vitality-ai": {
+    viewBox: "0 0 500 210",
+    nodes: [
+      { id: "react",   label: "React 19",      sublabel: "UI",             x: 60,  y: 98,  color: C.cyan   },
+      { id: "node",    label: "Node.js API",   sublabel: "PII Scrub",      x: 190, y: 98,  color: C.amber  },
+      { id: "sqlite",  label: "SQLite",        sublabel: "Memory",         x: 190, y: 155, color: C.emerald},
+      { id: "python",  label: "FastAPI",       sublabel: "Dual-Agent",     x: 320, y: 98,  color: C.violet },
+      { id: "apis",    label: "PubMed/USDA",   sublabel: "RAG Data",       x: 440, y: 98,  color: C.pink   },
+    ],
+    edges: [
+      { id: "r-n",  d: "M100,98 H150",                       delay: 0.10, label: "ask AI",      lx: 125, ly: 89  },
+      { id: "n-s",  d: "M190,111 V142",                      delay: 0.35, label: "history",     lx: 215, ly: 126 },
+      { id: "n-p",  d: "M230,98 H280",                       delay: 0.60, label: "scrubbed",    lx: 255, ly: 89  },
+      { id: "p-a",  d: "M360,98 H400",                       delay: 0.85, label: "verify",      lx: 380, ly: 89  },
+      { id: "p-r",  d: "M320,111 C320,205 60,205 60,111",    delay: 1.10, label: "safe reply",  lx: 255, ly: 190 },
+    ],
+  },
 }

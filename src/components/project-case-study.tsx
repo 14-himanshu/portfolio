@@ -120,7 +120,7 @@ export function ProjectCaseStudy({ project }: { project: Project }) {
                       fill
                       priority
                       sizes="(max-width: 1024px) 100vw, 45vw"
-                      className="object-cover object-top"
+                      className="object-contain object-top"
                     />
                   </div>
                 </motion.div>

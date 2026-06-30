@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
-import { Workflow, BrainCircuit, ShieldCheck, MessageSquare, TerminalSquare, LucideIcon } from "lucide-react";
+import { Workflow, BrainCircuit, ShieldCheck, MessageSquare, TerminalSquare, HeartPulse, LucideIcon } from "lucide-react";
 import { MouseEvent } from "react";
 
 type ProjectMeta = {
@@ -35,6 +35,11 @@ const projectMetadata: Record<string, ProjectMeta> = {
     icon: ShieldCheck,
     color: "#f472b6", // Pink
     gradient: "from-pink-500/20 to-rose-500/20",
+  },
+  "vitality-ai": {
+    icon: HeartPulse,
+    color: "#ef4444", // Red
+    gradient: "from-red-500/20 to-orange-500/20",
   },
 };
 
