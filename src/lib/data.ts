@@ -714,14 +714,14 @@ export const experience = [
     role: "Shipped AI-integrated production systems",
     duration: "Current Focus",
     description:
-      "Built and deployed four production applications across AI, real-time, and SaaS domains. Engineered a BullMQ async ingestion pipeline that survives Render cold starts, solved YouTube's IP block with an oEmbed public-API fallback, and wired LangGraph agent orchestration into a FastAPI backend for multi-step portfolio analysis. Every project is live with real users.",
+      "Architected and deployed four enterprise and clinical-grade production systems. Engineered 'Vitality AI' with a dual-agent medical triage system and strict PII data scrubbing. Scaled 'CourseSpace' content delivery using Cloudinary, and built resilient async BullMQ ingestion pipelines that survive serverless cold starts. Integrated complex LangGraph AI orchestrations into FastAPI backends.",
   },
   {
     company: "2023 — 2024",
     role: "Mastered systems from the ground up",
     duration: "Foundation",
     description:
-      "Replaced tutorials with deliberate depth: built raw WebSocket servers instead of reaching for Socket.io, wrote Mongoose schemas with strict validation, and debugged OAuth account-merging edge cases that most developers only read about. This phase was less about shipping and more about understanding what happens when things break at 2am.",
+      "Built highly concurrent, real-time architectures from scratch, avoiding heavy abstractions. Engineered raw WebSocket servers for live messaging platforms and developed strict, heavily validated Mongoose schemas. Resolved complex OAuth account-merging edge-cases and designed fault-tolerant PostgreSQL Dead Letter Queues (DLQ) for webhook delivery guarantees.",
   },
 ];
 

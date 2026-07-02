@@ -5,6 +5,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "sonner";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/react";
 import { EasterEgg } from "@/components/easter-egg";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", preload: false });
@@ -119,6 +120,7 @@ export default function RootLayout({
           />
           <EasterEgg />
           <SpeedInsights />
+          <Analytics />
         </ThemeProvider>
       </body>
     </html>
