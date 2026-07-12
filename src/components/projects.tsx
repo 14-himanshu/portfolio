@@ -7,6 +7,8 @@ import { FaGithub } from "react-icons/fa";
 import { projects } from "@/lib/data";
 import { architectures } from "@/lib/architecture";
 import { ArchitectureDiagram } from "@/components/architecture-diagram";
+import { MagicCard } from "@/components/ui/magic-card";
+import ShineBorder from "@/components/ui/shine-border";
 import Link from "next/link";
 import Image from "next/image";
 import type { Project } from "@/lib/data";
@@ -21,10 +23,19 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ delay: index * 0.1 }}
-      className="group relative flex flex-col rounded-xl border bg-card text-card-foreground shadow-sm overflow-hidden"
+      className="group relative flex flex-col rounded-xl overflow-hidden"
       onHoverStart={() => setHovered(true)}
       onHoverEnd={() => setHovered(false)}
     >
+      <ShineBorder 
+        className="relative flex h-full w-full flex-col !bg-card text-card-foreground p-0 !overflow-hidden border border-border/50 shadow-md rounded-xl"
+        color={["#A07CFE", "#FE8FB5", "#FFBE7B"]}
+        borderRadius={12}
+      >
+        <MagicCard
+          className="flex h-full w-full flex-col !bg-transparent border-none rounded-xl"
+          gradientColor="rgba(255,255,255,0.05)"
+        >
       {/* Top Image Area */}
       <div className="relative w-full aspect-video bg-muted/30 border-b overflow-hidden flex items-end justify-center pt-8 px-8 pb-0">
         {/* Actual Screenshot */}
@@ -113,16 +124,17 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           Read case study <ArrowRight className="ml-1 w-3.5 h-3.5" />
         </Link>
       </div>
+        </MagicCard>
+      </ShineBorder>
     </motion.div>
   );
 }
 
 export function Projects() {
-  const [visibleProjects, setVisibleProjects] = useState(4);
-
-  const loadMoreProjects = () => {
-    setVisibleProjects((prev) => prev + 4);
-  };
+  const [activeTab, setActiveTab] = useState<'ai' | 'systems'>('ai');
+  
+  const aiProjects = projects.filter((p) => p.category === "ai");
+  const systemsProjects = projects.filter((p) => p.category === "systems");
 
   return (
     <section id="projects" className="py-24 border-b border-border/50">
@@ -134,26 +146,40 @@ export function Projects() {
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-          {projects.slice(0, visibleProjects).map((project, index) => (
-            <ProjectCard key={project.slug} project={project} index={index} />
-          ))}
-        </div>
-
-        {visibleProjects < projects.length && (
-          <div className="mt-12 flex justify-center">
-            <button
-              onClick={loadMoreProjects}
-              className="flex items-center gap-2 px-4 py-2 rounded-full bg-secondary text-secondary-foreground text-xs font-medium hover:bg-secondary/80 transition-colors border border-border/50"
-            >
-              Load More
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="opacity-70">
-                <path d="m6 9 6 6 6-6"/>
-              </svg>
-            </button>
+        <div className="w-full">
+          <div className="flex justify-center mb-12 max-sm:mb-8 max-sm:px-2">
+            <div className="w-full max-w-md bg-muted/50 backdrop-blur-lg border border-border/50 grid grid-cols-2 gap-1 rounded-lg p-1">
+              <button
+                onClick={() => setActiveTab('ai')}
+                className={`inline-flex items-center justify-center whitespace-nowrap rounded-md px-3 py-1.5 text-xs sm:text-sm font-medium transition-all ${
+                  activeTab === 'ai'
+                    ? 'bg-background text-foreground shadow border border-border/50'
+                    : 'text-muted-foreground hover:bg-muted hover:text-foreground'
+                }`}
+              >
+                AI & Agentic Systems
+              </button>
+              <button
+                onClick={() => setActiveTab('systems')}
+                className={`inline-flex items-center justify-center whitespace-nowrap rounded-md px-3 py-1.5 text-xs sm:text-sm font-medium transition-all ${
+                  activeTab === 'systems'
+                    ? 'bg-background text-foreground shadow border border-border/50'
+                    : 'text-muted-foreground hover:bg-muted hover:text-foreground'
+                }`}
+              >
+                Full-Stack Engineering
+              </button>
+            </div>
           </div>
-        )}
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+            {(activeTab === 'ai' ? aiProjects : systemsProjects).map((project, index) => (
+              <ProjectCard key={project.slug} project={project} index={index} />
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );
 }
+
