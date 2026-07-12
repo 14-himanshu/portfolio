@@ -63,12 +63,16 @@ export function Skills() {
               
               <div className="flex flex-wrap gap-2 mt-auto">
                 {cat.skills.map(skill => (
-                  <span
-                    key={skill}
-                    className="px-2.5 py-1 bg-secondary text-secondary-foreground rounded-md text-xs font-medium cursor-default border border-border/50 hover:border-primary/30 transition-colors"
-                  >
-                    {skill}
-                  </span>
+                  <div key={skill} className="group relative inline-block">
+                    <span
+                      className="px-2.5 py-1 bg-secondary text-secondary-foreground rounded-md text-xs font-medium cursor-help border border-border/50 hover:border-primary/30 transition-colors inline-block"
+                    >
+                      {skill}
+                    </span>
+                    <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block whitespace-nowrap bg-foreground text-background text-xs px-2 py-1 rounded shadow-lg z-50 pointer-events-none after:content-[''] after:absolute after:top-full after:left-1/2 after:-translate-x-1/2 after:border-4 after:border-transparent after:border-t-foreground">
+                      Experienced in {skill}
+                    </div>
+                  </div>
                 ))}
               </div>
             </motion.div>

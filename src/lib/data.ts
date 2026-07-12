@@ -21,9 +21,117 @@ export type Project = {
   github: string;
   highlights: string[];
   caseStudy: ProjectCaseStudy;
+  category: 'ai' | 'systems';
 };
 
 export const projects: Project[] = [
+  {
+    slug: "nexus-research",
+    title: "Nexus Research",
+    description:
+      "An enterprise-grade, fully autonomous AI research assistant powered by a LangGraph multi-agent state machine.",
+    image: "/projects/nexus-research.png",
+    tags: ["React", "FastAPI", "LangGraph", "Gemini", "PostgreSQL"],
+    link: "https://nexus-research-omega.vercel.app/",
+    github: "https://github.com/14-himanshu/nexus-research",
+    highlights: [
+      "Multi-Agent Orchestration",
+      "Real-time Web Search",
+      "Fact-Checking Loop",
+      "Framer Motion UI",
+    ],
+    category: "ai",
+    caseStudy: {
+      summary:
+        "Nexus Research is an enterprise-grade, fully autonomous AI research assistant. Unlike standard conversational AI models that provide immediate but often superficial answers, Nexus executes a complete, deep-dive research pipeline.",
+      sections: [
+        {
+          title: "The Problem",
+          paragraphs: [
+            "In the era of generative AI, users often face several challenges when seeking in-depth information:"
+          ],
+          bullets: [
+            "Superficial Answers: Standard chatbots often lack the depth required for academic or enterprise-level research.",
+            "Hallucinations & Inaccuracies: AI models can confidently present false information if not actively verified against real-time data.",
+            "Information Overload: Manually researching a complex topic requires opening dozens of tabs, verifying sources, and synthesizing data.",
+            "Context Loss: Long-form research generation often exceeds standard context windows, leading to disorganized or repetitive outputs."
+          ]
+        },
+        {
+          title: "The Solution",
+          paragraphs: [
+            "Nexus Research solves these problems by moving from a single-prompt paradigm to an agentic workflow. By utilizing a multi-agent state-machine architecture, the system breaks down complex queries into manageable tasks, delegates them to specialized AI personas, searches the live internet, fact-checks its own findings, and compiles a final, high-quality markdown report."
+          ]
+        },
+        {
+          title: "Key Features",
+          paragraphs: [],
+          bullets: [
+            "Multi-Agent Orchestration: A collaborative pipeline where agents review each other's work and iteratively build reports.",
+            "Deep Web Search Integration: Real-time web scraping and search (powered by Tavily) ensures up-to-date and accurate data gathering.",
+            "Self-Correction Loop: An independent Fact-Checker agent verifies claims and forces the Researcher to gather more data if discrepancies are found.",
+            "Bring Your Own Key (BYOK): Allows users to connect their personal Google Gemini API keys to bypass global rate limits.",
+            "Private Workspaces: Secure, multi-user authentication to keep research history and API keys completely private.",
+            "Paper Mode: A distraction-free, elegant reading mode optimized for long-form reports.",
+            "Rich Exports: One-click copy to Markdown or print to PDF capabilities for easy sharing."
+          ]
+        },
+        {
+          title: "Architecture & Tech Stack",
+          paragraphs: [
+            "Nexus Research is built on a modern, scalable, and decoupled architecture."
+          ],
+          bullets: [
+            "Backend: Python 3.9+, FastAPI (High-performance asynchronous API).",
+            "AI & Orchestration: Google Gemini 1.5 Pro, LangChain, LangGraph (State-machine for agent orchestration).",
+            "Search API: Tavily API for optimized LLM-based web search.",
+            "Database: PostgreSQL (via psycopg2) for scalable, production-grade storage of users, workspaces, and reports.",
+            "Frontend: React (via Vite) + TypeScript for type safety and speed.",
+            "Styling: TailwindCSS for utility-first, responsive design, featuring a premium Dark Mode.",
+            "Animations: Framer Motion for beautiful micro-animations, providing real-time visual feedback on agent activities.",
+            "DevOps & Deployment: Docker, GitHub Actions, Vercel, Render, Neon/Supabase."
+          ]
+        },
+        {
+          title: "The Multi-Agent Workflow",
+          paragraphs: [
+            "The core innovation of Nexus Research lies in its LangGraph-powered state machine. When a user submits a query, the system transitions through the following specialized nodes:"
+          ],
+          bullets: [
+            "The Planner Agent: Analyzes the user's request and generates a step-by-step research plan. It identifies exactly what information needs to be gathered, breaking a broad topic into specific research vectors.",
+            "The Researcher Agent: Executes the Planner's strategy by formulating search queries, hitting the Tavily Search API, reading web pages, and accumulating raw data into the shared graph state.",
+            "The Fact-Checker Agent: Reviews the accumulated data against the original query. It verifies claims, highlights discrepancies, and identifies missing information. Crucially, if the data is insufficient or contradictory, the graph loops back to the Researcher agent to gather more specific data before proceeding.",
+            "The Writer Agent: Takes the verified facts and synthesizes them into a cohesive, structured markdown report. It ensures proper formatting, adds citations, and creates a highly readable final product."
+          ]
+        },
+        {
+          title: "UI/UX Design Philosophy",
+          paragraphs: [
+            "The user interface was designed to feel like a premium, professional tool:"
+          ],
+          bullets: [
+            "Real-time Transparency: Through the AgentTracker component, users can watch the AI 'think'. The UI displays exactly which agent is currently active and what task they are performing, turning a 'black box' process into an engaging experience.",
+            "Focus-Driven Reading: The 'Paper Mode' strips away navigation and controls, centering the finalized research report on the screen—much like reading an academic paper or a Medium article.",
+            "Fluid Interactions: Framer Motion is utilized to smoothly transition between states (e.g., from the chat input phase to the active research phase, and finally to the report rendering phase)."
+          ]
+        },
+        {
+          title: "Challenges & Technical Learnings",
+          paragraphs: [
+            "Managing State Across Agents: Passing context between multiple LLM calls can lead to token bloat. Using LangGraph allowed for a strictly typed State object that gets updated incrementally, ensuring that the Writer agent only sees the synthesized facts and not the noise of raw search results.",
+            "Preventing Hallucinations: Initial prototypes occasionally generated plausible but false claims. The introduction of the independent Fact-Checker Agent created a deterministic loop that drastically reduced hallucinations, proving that LLMs perform better when evaluating other LLMs' outputs.",
+            "Handling Long-Running Requests: Because a deep research task can take 30-60 seconds, standard HTTP requests might time out. The architecture handles this through asynchronous processing and real-time status polling to keep the frontend updated without blocking the main thread."
+          ]
+        },
+        {
+          title: "Conclusion",
+          paragraphs: [
+            "Nexus Research demonstrates the transition from conversational AI to agentic AI. By orchestrating specialized agents to perform distinct roles, the system achieves a level of depth, accuracy, and reliability that a single LLM prompt cannot match. This project serves as a robust template for the future of automated enterprise research and intelligent workflows."
+          ]
+        }
+      ]
+    }
+  },
   {
     slug: "webhook-orchestrator",
     title: "Webhook Orchestrator",
@@ -39,6 +147,7 @@ export const projects: Project[] = [
       "Exponential Backoff",
       "Dead Letter Queue (DLQ)",
     ],
+    category: "systems",
     caseStudy: {
       summary:
         "The Webhook Orchestrator is a fault-tolerant, distributed delivery system designed to handle asynchronous webhook ingestion and delivery. It solves the common problems of timeouts and data loss in serverless environments by entirely decoupling the receiving of data from its processing and delivery.",
@@ -136,6 +245,7 @@ export const projects: Project[] = [
       "Background queue processing",
       "Google OAuth",
     ],
+    category: "ai",
     caseStudy: {
       summary:
         "A full-stack personal knowledge workspace featuring automated ingestion workers, hybrid semantic search, context-grounded AI synthesis (RAG), and a subscription-based upgrade funnel.",
@@ -259,6 +369,7 @@ export const projects: Project[] = [
       "Message lifecycle actions",
       "Cloudinary uploads",
     ],
+    category: "systems",
     caseStudy: {
       summary:
         "Slate is a full-stack real-time chat application where authenticated users can join multiple rooms, exchange messages instantly, and manage their profile across a modern responsive interface.",
@@ -450,6 +561,7 @@ export const projects: Project[] = [
       "FastAPI + Vanilla JS split",
       "Render deployment",
     ],
+    category: "ai",
     caseStudy: {
       summary:
         "DevScope is an AI-powered app that analyzes a GitHub user's profile and repositories, then returns mentorship-style feedback on their portfolio.",
@@ -538,6 +650,7 @@ export const projects: Project[] = [
       "IP rate limiters & security",
       "Winston & Morgan logs",
     ],
+    category: "systems",
     caseStudy: {
       summary:
         "CourseSpace is a modern, premium SaaS Course Selling platform built using the MERN stack. Designed with a dark-mode first aesthetic, it provides seamless content delivery for students and a complete CRUD management system for course creators.",
@@ -655,6 +768,7 @@ export const projects: Project[] = [
       "Persistent Clinical Memory",
       "PII Data Scrubbing",
     ],
+    category: "ai",
     caseStudy: {
       summary:
         "Vitality AI is an advanced, decoupled Health and Fitness ecosystem designed to provide clinical-grade, fact-checked, and highly personalized health insights. It utilizes a sophisticated dual-agent architecture, live medical journal citations (RAG), and a permanent clinical memory store.",
@@ -713,6 +827,7 @@ export const experience = [
     company: "2024 — Now",
     role: "Shipped AI-integrated production systems",
     duration: "Current Focus",
+    logo: "https://ui-avatars.com/api/?name=Current+Focus&background=10B981&color=fff",
     description:
       "Architected and deployed four enterprise and clinical-grade production systems. Engineered 'Vitality AI' with a dual-agent medical triage system and strict PII data scrubbing. Scaled 'CourseSpace' content delivery using Cloudinary, and built resilient async BullMQ ingestion pipelines that survive serverless cold starts. Integrated complex LangGraph AI orchestrations into FastAPI backends.",
   },
@@ -720,9 +835,20 @@ export const experience = [
     company: "2023 — 2024",
     role: "Mastered systems from the ground up",
     duration: "Foundation",
+    logo: "https://ui-avatars.com/api/?name=Foundation&background=F59E0B&color=fff",
     description:
       "Built highly concurrent, real-time architectures from scratch, avoiding heavy abstractions. Engineered raw WebSocket servers for live messaging platforms and developed strict, heavily validated Mongoose schemas. Resolved complex OAuth account-merging edge-cases and designed fault-tolerant PostgreSQL Dead Letter Queues (DLQ) for webhook delivery guarantees.",
   },
+];
+
+export const coursework = [
+  {
+    course_title: "Full Stack + DevOps + Web3",
+    course_company: "100xDevs",
+    duration: "Aug 2024 - March 2025",
+    logo: "https://ui-avatars.com/api/?name=100xDevs&background=0D8ABC&color=fff",
+    description: "Expanded Full Stack Development skills by diving into DevOps and Web3 technologies. Covered CI/CD, cloud infrastructure, and decentralized application (dApp) development, enhancing proficiency in modern development practices."
+  }
 ];
 
 export const skills = [

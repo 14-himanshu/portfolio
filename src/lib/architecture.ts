@@ -188,4 +188,25 @@ export const architectures: Record<string, DiagramData> = {
       { id: "p-r",  d: "M320,111 C320,205 60,205 60,111",    delay: 1.10, label: "safe reply",  lx: 255, ly: 190 },
     ],
   },
+
+  /* ─── NEXUS RESEARCH ─────────────────────────────────────────────────────────
+     5-node agentic graph flow:
+     User → Planner → Researcher ↔ Fact Checker → Writer → (back to User)
+     viewBox 500×210, NW=80, NH=26
+  ─────────────────────────────────────────────────────────────────────────── */
+  "nexus-research": {
+    viewBox: "0 0 520 210",
+    nodes: [
+      { id: "planner",   label: "Planner",       sublabel: "Deconstruct & Plan",   x: 80,  y: 105,  color: C.violet },
+      { id: "research",  label: "Researcher",    sublabel: "Search & Scrape",      x: 200, y: 105,  color: C.cyan   },
+      { id: "checker",   label: "Fact Checker",  sublabel: "Verify & Filter",      x: 320, y: 105,  color: C.amber  },
+      { id: "writer",    label: "Writer",        sublabel: "Synthesize & Write",   x: 440, y: 105,  color: C.emerald},
+    ],
+    edges: [
+      { id: "p-r",   d: "M120,105 H160",                      delay: 0.10, label: "plan",       lx: 140, ly: 95  },
+      { id: "r-c",   d: "M240,105 H280",                      delay: 0.40, label: "raw data",   lx: 260, ly: 95  },
+      { id: "c-r",   d: "M280,115 C260,135 260,135 240,115",  delay: 0.70, label: "re-search",  lx: 260, ly: 140 }, // Feedback loop below
+      { id: "c-w",   d: "M360,105 H400",                      delay: 1.00, label: "verified",   lx: 380, ly: 95  },
+    ],
+  },
 }

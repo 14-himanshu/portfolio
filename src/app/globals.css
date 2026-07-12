@@ -27,6 +27,13 @@
   --radius-lg: 1.25rem;
   --radius-md: calc(1.25rem - 2px);
   --radius-sm: calc(1.25rem - 4px);
+
+  --animate-shine: shine var(--duration, 14s) infinite linear;
+  @keyframes shine {
+    0% { background-position: 0% 0%; }
+    50% { background-position: 100% 100%; }
+    100% { background-position: 0% 0%; }
+  }
 }
 
 @layer base {
